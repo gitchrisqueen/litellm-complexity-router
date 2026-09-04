@@ -3,9 +3,9 @@
 
 e1:
   # Exact-tier accuracy on the frozen `test` split. Reported with its Wilson
-  # 95% interval and described as directional. The plan makes the two
-  # directional rules the only hard accuracy gates; the exact threshold stays
-  # a reported number until a labeling-agreement statistic exists.
+  # 95% interval and described as directional. By design the two directional
+  # rules are the only hard accuracy gates; the exact threshold stays a
+  # reported number until a labeling-agreement statistic exists.
   exact_min: 0.80
   enforce_exact: false
   # Two absolute directional rules, always enforced: no SIMPLE-labeled row may

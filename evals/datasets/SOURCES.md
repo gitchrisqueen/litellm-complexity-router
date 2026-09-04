@@ -14,7 +14,7 @@ a client, a prospect, or any logged conversation.
 | `e1_routing.jsonl` | 120 | 60 `synthetic`, 60 `public:*` (six headings below) | synthetic rows: one pass by the extracting agent, **not blind** (`agent-seed-not-blind` for the 36 seed rows, `agent-single-pass-not-blind` for the 24 added rows); anchored rows: `anchor-mapping-v1`, a pure function of the source dataset's own field (the rater did not read the prompt to choose the tier) | 60 (50% of every split) |
 | `e5_malformed.jsonl` | 9 | `synthetic` | same | n/a (behaviour pins, not labels) |
 
-Composition per split (the plan's sizing: 50 / 20 / 50, at least 40% anchored
+Composition per split (the committed sizing: 50 / 20 / 50, at least 40% anchored
 in every split, at least 20 anchored rows in the frozen test split):
 
 | Split | Rows | Anchored | Anchored share | `synthetic` | `public:math` | `public:dolly-15k` | `public:arc-easy` | `public:arc-challenge` | `public:gsm8k` | `public:humaneval` |

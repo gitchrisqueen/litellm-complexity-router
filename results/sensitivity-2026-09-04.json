@@ -1,11 +1,11 @@
 {
   "provenance": {
     "schema_version": 2,
-    "run_at": "2026-09-04T16:39:22+00:00",
-    "harness_git_sha": "5fc68a766f76c81b550a44c3096814b97ae7c58f",
+    "run_at": "2026-09-04T16:40:12+00:00",
+    "harness_git_sha": "a7fabc89944ad0031cf0c5068df594c42304fe96",
     "package_version": "0.2.0",
     "config_sha256": "dfbe704b5509f0ed3d4fa283598337321968b0f13e3db30c387614792a01f49a",
-    "thresholds_sha256": "c3cd411106dea3fcb1b9913995a3505fa10a78d712608468b5aab1ee72b99a0c",
+    "thresholds_sha256": "a1909d35aa7e0c4c86f192dd3774fdca9a872cf686b7d48a41a19e04dc30c3d1",
     "datasets_sha256": {
       "e1_routing.jsonl": "d167ae37e5e457f5e56c4c54169d9353e81d315cd7365d35bd71a55a4767f0d3",
       "e5_malformed.jsonl": "390e80c41ebf607e02f5e463a2c1407828c4936dbdda7a5f2dac60035db94076"
