@@ -1,0 +1,100 @@
+# Illustrative LiteLLM proxy config for litellm-complexity-router.
+#
+# Hand-written for this repository. Model names, limits and rates are
+# placeholders chosen to show the shape; substitute your own model_list.
+# The only endpoint shown is a public provider endpoint. No production
+# configuration is reproduced here.
+#
+# Run:  COMPLEXITY_ROUTER_CONFIG=examples/config.yaml litellm --config examples/config.yaml
+# Then: call model "tier-router" and watch the hook rewrite `model` per request.
+
+model_list:
+  - model_name: tier-simple
+    litellm_params:
+      model: openai/<small-fast-model>
+      api_base: https://ollama.com/v1
+      api_key: os.environ/OLLAMA_API_KEY
+    model_info:
+      max_input_tokens: 120000
+
+  - model_name: tier-medium
+    litellm_params:
+      model: openai/<mid-size-all-purpose-model>
+      api_base: https://ollama.com/v1
+      api_key: os.environ/OLLAMA_API_KEY
+    model_info:
+      supports_function_calling: true
+      max_input_tokens: 120000
+
+  - model_name: tier-complex
+    litellm_params:
+      model: openai/<tool-reliable-model>
+      api_base: https://ollama.com/v1
+      api_key: os.environ/OLLAMA_API_KEY
+    model_info:
+      supports_function_calling: true
+      max_input_tokens: 131072
+
+  - model_name: tier-reasoning
+    litellm_params:
+      model: openai/<large-reasoning-model>
+      api_base: https://ollama.com/v1
+      api_key: os.environ/OLLAMA_API_KEY
+    model_info:
+      supports_function_calling: true
+      supports_reasoning: true
+      max_input_tokens: 262144
+
+  # The virtual model clients call. It needs a real entry so LiteLLM accepts
+  # the request before the pre-call hook rewrites `model` to a tier above.
+  - model_name: tier-router
+    litellm_params:
+      model: openai/<tool-reliable-model>
+      api_base: https://ollama.com/v1
+      api_key: os.environ/OLLAMA_API_KEY
+
+router_settings:
+  num_retries: 2
+  fallbacks:
+    - tier-reasoning: [tier-complex]
+    - tier-complex: [tier-medium]
+
+litellm_settings:
+  callbacks:
+    - complexity_router.hook.complexity_router_hook
+  drop_params: true
+
+# Read by RouterConfig.load() when COMPLEXITY_ROUTER_CONFIG points at this file.
+# Every key is optional; omitted keys take the library defaults shown here.
+complexity_router:
+  router_model_name: tier-router
+  tier_models:
+    SIMPLE: tier-simple
+    MEDIUM: tier-medium
+    COMPLEX: tier-complex
+    REASONING: tier-reasoning
+  tier_boundaries:
+    simple_medium: 0.05
+    medium_complex: 0.09
+    complex_reasoning: 0.25
+  dimension_weights:
+    tokenCount: 0.10
+    codePresence: 0.30
+    reasoningMarkers: 0.25
+    technicalTerms: 0.25
+    simpleIndicators: 0.05
+    multiStepPatterns: 0.03
+    questionComplexity: 0.02
+  tool_session_min_tier: COMPLEX
+  tier_tool_choice:
+    SIMPLE: auto
+    MEDIUM: auto
+    COMPLEX: required
+    REASONING: required
+  # Regexes removed from the last user message before scoring. Replace with the
+  # tags your own tooling injects (retrieved memories, session status, etc.).
+  strip_patterns:
+    - "<injected-context[^>]*>.*?</injected-context>"
+  empty_text_score: 0.3
+  default_tier: COMPLEX
+  metadata_key: complexity_router
