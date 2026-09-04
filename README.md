@@ -77,7 +77,7 @@ Stays private in this first cut: the classifier layer that reassigns targets by 
 
 ## Evals
 
-Three free families run on every push. No model is called and nothing costs money.
+Three free families run on every push to `main` and on every pull request. No model is called and nothing costs money.
 
 | Family | What it measures | Gate |
 |---|---|---|
@@ -96,7 +96,7 @@ Three free families run on every push. No model is called and nothing costs mone
 
 Until 2–4 land, the accuracy number is directional and the only hard gates are the directional rules and E4.
 
-**Provenance in every result.** `results/*.json` carries `schema_version`, the harness git SHA, the dataset SHA-256, the config digest, the Python version and `cost_usd: 0.0`.
+**Provenance in every result.** `results/latest.json` and each dated run file carry `schema_version`, the harness git SHA, the dataset SHA-256, the config digest, the Python version and `cost_usd: 0.0`.
 
 **The harness is a shape, not a deliverable.** The method here is free and MIT so that anyone can copy it. What a client engagement buys is what this repository cannot contain: replay cases recorded from their own conversations, their tool schemas and failure modes, thresholds set against their traffic, tier boundaries tuned to their prompts, wiring into their CI, and a written hand-off.
 
