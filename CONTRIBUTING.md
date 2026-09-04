@@ -44,3 +44,16 @@ pytest --cov=complexity_router
 python -m evals.harness --family e1 e4 e5
 python scripts/denylist_guard.py
 ```
+
+## Known limits of the denylist guard
+
+Stated so nobody over-trusts a green run:
+
+- Candidates are lowercased ASCII-ish tokens; no Unicode normalisation (NFKC),
+  so a term written with look-alike characters is not matched.
+- Bare-word substrings are checked at lengths 3–12; a denied term longer than
+  12 characters embedded inside a longer unbroken word is matched only as a
+  whole token or word, not as a substring.
+- Encoded blobs (base64, hex, compressed) are not decoded before scanning.
+- CI cannot regenerate `scripts/denylist.sha256`; the sources are private and
+  the maintainer regenerates it by hand when they change.

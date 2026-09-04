@@ -1,8 +1,8 @@
 {
   "provenance": {
     "schema_version": 1,
-    "run_at": "2026-09-04T14:33:58+00:00",
-    "harness_git_sha": "8670545bd8af947cb62fc8e922c46e00447eaf84",
+    "run_at": "2026-09-04T14:42:27+00:00",
+    "harness_git_sha": "1f007e181f0040265dee3393016b38b3c3d44bd5",
     "package_version": "0.1.0",
     "config_sha256": "a6d50b3c60afa6c30a33a6437c0c3a7397999bbd4f0dc4433cc40bfe74336900",
     "python": "3.12.14",
@@ -686,7 +686,7 @@
     "E5": {
       "family": "E5",
       "dataset": "e5_malformed.jsonl",
-      "dataset_sha256": "af1b4a285cda444b9fb9cc2b7a57166bcc58997a486f6ee3a52b4f14f6ed1d6b",
+      "dataset_sha256": "27ca675fd83f7945b04bb2630a7a66528a47f87decd8163f50960bdd221b2d3f",
       "rows": 9,
       "failed": [],
       "passed": true,
@@ -781,7 +781,7 @@
         },
         {
           "id": "e5-009",
-          "class": "tools-with-empty-text",
+          "class": "empty-text-with-tools",
           "expected": "REASONING",
           "predicted": "REASONING",
           "score": 0.3,
