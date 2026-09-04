@@ -1,0 +1,11 @@
+litellm-complexity-router
+Copyright (c) 2026 Christopher Queen. Licensed under the MIT License (see LICENSE).
+
+This package is a plug-in for LiteLLM (https://github.com/BerriAI/litellm),
+which is licensed separately by its authors. LiteLLM is not vendored here:
+the hook subclasses `litellm.integrations.custom_logger.CustomLogger` when
+LiteLLM is installed, and the scoring and tier logic run without it.
+
+The code in this repository was extracted from a private, single-operator
+production hook and rewritten as a standalone library with a fresh history.
+No third-party code other than the LiteLLM import above is included.
