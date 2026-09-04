@@ -1,9 +1,27 @@
 {
-  "schema_version": 1,
-  "recorded": "2026-09-04T14:33:58+00:00",
-  "harness_git_sha": "8670545bd8af947cb62fc8e922c46e00447eaf84",
-  "dataset_sha256": "690f644ad0feaecbfc6486b86dcebef91067cf875925eae6ede267e938fad335",
-  "accuracy": 0.6111111111111112,
+  "schema_version": 2,
+  "provenance": {
+    "schema_version": 2,
+    "run_at": "2026-09-04T16:50:29+00:00",
+    "harness_git_sha": "9c6b73b606a97d7094c72f632f92c39afa55b96d",
+    "package_version": "0.2.0",
+    "config_sha256": "dfbe704b5509f0ed3d4fa283598337321968b0f13e3db30c387614792a01f49a",
+    "thresholds_sha256": "a1909d35aa7e0c4c86f192dd3774fdca9a872cf686b7d48a41a19e04dc30c3d1",
+    "datasets_sha256": {
+      "e1_routing.jsonl": "d167ae37e5e457f5e56c4c54169d9353e81d315cd7365d35bd71a55a4767f0d3",
+      "e5_malformed.jsonl": "390e80c41ebf607e02f5e463a2c1407828c4936dbdda7a5f2dac60035db94076"
+    },
+    "split_assignment_sha256": "51850bcb26e0f6a8f881498f3fa937a90ceb529b413811cb65a61ccb503044e8",
+    "python": "3.12.14",
+    "platform": "macOS-15.8-x86_64-i386-64bit",
+    "cost_usd": 0.0,
+    "note": "Pure-function run over committed datasets; no model was called."
+  },
+  "recorded": "2026-09-04T16:50:29+00:00",
+  "harness_git_sha": "9c6b73b606a97d7094c72f632f92c39afa55b96d",
+  "dataset_sha256": "d167ae37e5e457f5e56c4c54169d9353e81d315cd7365d35bd71a55a4767f0d3",
+  "split_assignment_sha256": "51850bcb26e0f6a8f881498f3fa937a90ceb529b413811cb65a61ccb503044e8",
+  "accuracy": 0.44166666666666665,
   "per_row": [
     {
       "id": "e1-001",
@@ -182,6 +200,426 @@
     },
     {
       "id": "e1-036",
+      "expected": "REASONING",
+      "predicted": "REASONING"
+    },
+    {
+      "id": "e1-037",
+      "expected": "SIMPLE",
+      "predicted": "SIMPLE"
+    },
+    {
+      "id": "e1-038",
+      "expected": "SIMPLE",
+      "predicted": "SIMPLE"
+    },
+    {
+      "id": "e1-039",
+      "expected": "SIMPLE",
+      "predicted": "COMPLEX"
+    },
+    {
+      "id": "e1-040",
+      "expected": "SIMPLE",
+      "predicted": "SIMPLE"
+    },
+    {
+      "id": "e1-041",
+      "expected": "SIMPLE",
+      "predicted": "SIMPLE"
+    },
+    {
+      "id": "e1-042",
+      "expected": "SIMPLE",
+      "predicted": "SIMPLE"
+    },
+    {
+      "id": "e1-043",
+      "expected": "SIMPLE",
+      "predicted": "REASONING"
+    },
+    {
+      "id": "e1-044",
+      "expected": "SIMPLE",
+      "predicted": "SIMPLE"
+    },
+    {
+      "id": "e1-045",
+      "expected": "SIMPLE",
+      "predicted": "SIMPLE"
+    },
+    {
+      "id": "e1-046",
+      "expected": "SIMPLE",
+      "predicted": "SIMPLE"
+    },
+    {
+      "id": "e1-047",
+      "expected": "SIMPLE",
+      "predicted": "SIMPLE"
+    },
+    {
+      "id": "e1-048",
+      "expected": "SIMPLE",
+      "predicted": "SIMPLE"
+    },
+    {
+      "id": "e1-049",
+      "expected": "SIMPLE",
+      "predicted": "SIMPLE"
+    },
+    {
+      "id": "e1-050",
+      "expected": "SIMPLE",
+      "predicted": "SIMPLE"
+    },
+    {
+      "id": "e1-051",
+      "expected": "SIMPLE",
+      "predicted": "SIMPLE"
+    },
+    {
+      "id": "e1-052",
+      "expected": "MEDIUM",
+      "predicted": "SIMPLE"
+    },
+    {
+      "id": "e1-053",
+      "expected": "MEDIUM",
+      "predicted": "SIMPLE"
+    },
+    {
+      "id": "e1-054",
+      "expected": "MEDIUM",
+      "predicted": "SIMPLE"
+    },
+    {
+      "id": "e1-055",
+      "expected": "MEDIUM",
+      "predicted": "SIMPLE"
+    },
+    {
+      "id": "e1-056",
+      "expected": "MEDIUM",
+      "predicted": "MEDIUM"
+    },
+    {
+      "id": "e1-057",
+      "expected": "MEDIUM",
+      "predicted": "COMPLEX"
+    },
+    {
+      "id": "e1-058",
+      "expected": "MEDIUM",
+      "predicted": "SIMPLE"
+    },
+    {
+      "id": "e1-059",
+      "expected": "MEDIUM",
+      "predicted": "SIMPLE"
+    },
+    {
+      "id": "e1-060",
+      "expected": "MEDIUM",
+      "predicted": "SIMPLE"
+    },
+    {
+      "id": "e1-061",
+      "expected": "MEDIUM",
+      "predicted": "SIMPLE"
+    },
+    {
+      "id": "e1-062",
+      "expected": "MEDIUM",
+      "predicted": "SIMPLE"
+    },
+    {
+      "id": "e1-063",
+      "expected": "MEDIUM",
+      "predicted": "SIMPLE"
+    },
+    {
+      "id": "e1-064",
+      "expected": "MEDIUM",
+      "predicted": "SIMPLE"
+    },
+    {
+      "id": "e1-065",
+      "expected": "MEDIUM",
+      "predicted": "SIMPLE"
+    },
+    {
+      "id": "e1-066",
+      "expected": "MEDIUM",
+      "predicted": "SIMPLE"
+    },
+    {
+      "id": "e1-067",
+      "expected": "COMPLEX",
+      "predicted": "SIMPLE"
+    },
+    {
+      "id": "e1-068",
+      "expected": "COMPLEX",
+      "predicted": "SIMPLE"
+    },
+    {
+      "id": "e1-069",
+      "expected": "COMPLEX",
+      "predicted": "SIMPLE"
+    },
+    {
+      "id": "e1-070",
+      "expected": "COMPLEX",
+      "predicted": "SIMPLE"
+    },
+    {
+      "id": "e1-071",
+      "expected": "COMPLEX",
+      "predicted": "SIMPLE"
+    },
+    {
+      "id": "e1-072",
+      "expected": "COMPLEX",
+      "predicted": "COMPLEX"
+    },
+    {
+      "id": "e1-073",
+      "expected": "COMPLEX",
+      "predicted": "REASONING"
+    },
+    {
+      "id": "e1-074",
+      "expected": "COMPLEX",
+      "predicted": "COMPLEX"
+    },
+    {
+      "id": "e1-075",
+      "expected": "COMPLEX",
+      "predicted": "REASONING"
+    },
+    {
+      "id": "e1-076",
+      "expected": "COMPLEX",
+      "predicted": "REASONING"
+    },
+    {
+      "id": "e1-077",
+      "expected": "COMPLEX",
+      "predicted": "SIMPLE"
+    },
+    {
+      "id": "e1-078",
+      "expected": "COMPLEX",
+      "predicted": "SIMPLE"
+    },
+    {
+      "id": "e1-079",
+      "expected": "COMPLEX",
+      "predicted": "SIMPLE"
+    },
+    {
+      "id": "e1-080",
+      "expected": "COMPLEX",
+      "predicted": "SIMPLE"
+    },
+    {
+      "id": "e1-081",
+      "expected": "COMPLEX",
+      "predicted": "SIMPLE"
+    },
+    {
+      "id": "e1-082",
+      "expected": "REASONING",
+      "predicted": "MEDIUM"
+    },
+    {
+      "id": "e1-083",
+      "expected": "REASONING",
+      "predicted": "COMPLEX"
+    },
+    {
+      "id": "e1-084",
+      "expected": "REASONING",
+      "predicted": "SIMPLE"
+    },
+    {
+      "id": "e1-085",
+      "expected": "REASONING",
+      "predicted": "SIMPLE"
+    },
+    {
+      "id": "e1-086",
+      "expected": "REASONING",
+      "predicted": "SIMPLE"
+    },
+    {
+      "id": "e1-087",
+      "expected": "REASONING",
+      "predicted": "SIMPLE"
+    },
+    {
+      "id": "e1-088",
+      "expected": "REASONING",
+      "predicted": "SIMPLE"
+    },
+    {
+      "id": "e1-089",
+      "expected": "REASONING",
+      "predicted": "SIMPLE"
+    },
+    {
+      "id": "e1-090",
+      "expected": "REASONING",
+      "predicted": "SIMPLE"
+    },
+    {
+      "id": "e1-091",
+      "expected": "REASONING",
+      "predicted": "COMPLEX"
+    },
+    {
+      "id": "e1-092",
+      "expected": "REASONING",
+      "predicted": "SIMPLE"
+    },
+    {
+      "id": "e1-093",
+      "expected": "REASONING",
+      "predicted": "MEDIUM"
+    },
+    {
+      "id": "e1-094",
+      "expected": "REASONING",
+      "predicted": "MEDIUM"
+    },
+    {
+      "id": "e1-095",
+      "expected": "REASONING",
+      "predicted": "SIMPLE"
+    },
+    {
+      "id": "e1-096",
+      "expected": "REASONING",
+      "predicted": "SIMPLE"
+    },
+    {
+      "id": "e1-097",
+      "expected": "SIMPLE",
+      "predicted": "SIMPLE"
+    },
+    {
+      "id": "e1-098",
+      "expected": "MEDIUM",
+      "predicted": "SIMPLE"
+    },
+    {
+      "id": "e1-099",
+      "expected": "COMPLEX",
+      "predicted": "COMPLEX"
+    },
+    {
+      "id": "e1-100",
+      "expected": "REASONING",
+      "predicted": "REASONING"
+    },
+    {
+      "id": "e1-101",
+      "expected": "COMPLEX",
+      "predicted": "COMPLEX"
+    },
+    {
+      "id": "e1-102",
+      "expected": "SIMPLE",
+      "predicted": "SIMPLE"
+    },
+    {
+      "id": "e1-103",
+      "expected": "MEDIUM",
+      "predicted": "SIMPLE"
+    },
+    {
+      "id": "e1-104",
+      "expected": "REASONING",
+      "predicted": "REASONING"
+    },
+    {
+      "id": "e1-105",
+      "expected": "SIMPLE",
+      "predicted": "SIMPLE"
+    },
+    {
+      "id": "e1-106",
+      "expected": "SIMPLE",
+      "predicted": "SIMPLE"
+    },
+    {
+      "id": "e1-107",
+      "expected": "SIMPLE",
+      "predicted": "SIMPLE"
+    },
+    {
+      "id": "e1-108",
+      "expected": "MEDIUM",
+      "predicted": "SIMPLE"
+    },
+    {
+      "id": "e1-109",
+      "expected": "MEDIUM",
+      "predicted": "SIMPLE"
+    },
+    {
+      "id": "e1-110",
+      "expected": "MEDIUM",
+      "predicted": "SIMPLE"
+    },
+    {
+      "id": "e1-111",
+      "expected": "MEDIUM",
+      "predicted": "COMPLEX"
+    },
+    {
+      "id": "e1-112",
+      "expected": "COMPLEX",
+      "predicted": "SIMPLE"
+    },
+    {
+      "id": "e1-113",
+      "expected": "COMPLEX",
+      "predicted": "COMPLEX"
+    },
+    {
+      "id": "e1-114",
+      "expected": "COMPLEX",
+      "predicted": "SIMPLE"
+    },
+    {
+      "id": "e1-115",
+      "expected": "COMPLEX",
+      "predicted": "COMPLEX"
+    },
+    {
+      "id": "e1-116",
+      "expected": "REASONING",
+      "predicted": "COMPLEX"
+    },
+    {
+      "id": "e1-117",
+      "expected": "REASONING",
+      "predicted": "REASONING"
+    },
+    {
+      "id": "e1-118",
+      "expected": "REASONING",
+      "predicted": "REASONING"
+    },
+    {
+      "id": "e1-119",
+      "expected": "COMPLEX",
+      "predicted": "COMPLEX"
+    },
+    {
+      "id": "e1-120",
       "expected": "REASONING",
       "predicted": "REASONING"
     }

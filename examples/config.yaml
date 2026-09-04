@@ -95,6 +95,6 @@ complexity_router:
   # tags your own tooling injects (retrieved memories, session status, etc.).
   strip_patterns:
     - "<injected-context[^>]*>.*?</injected-context>"
-  empty_text_score: 0.3
+  empty_text_score: 0.0
   default_tier: COMPLEX
   metadata_key: complexity_router

@@ -113,13 +113,13 @@ def test_extract_ignores_non_dict_messages_and_none_content() -> None:
     ],
 )
 def test_empty_text_returns_the_pinned_default(messages: list) -> None:
-    # The intent pinned here: no scorable text -> the mid-scale default, not 0.
-    assert score_complexity(messages) == EMPTY_TEXT_SCORE == 0.3
+    # The intent pinned here: no scorable text -> 0.0, the lowest tier.
+    assert score_complexity(messages) == EMPTY_TEXT_SCORE == 0.0
     assert score_breakdown(messages)["empty"] == 1.0
 
 
 def test_empty_text_score_is_configurable() -> None:
-    assert score_complexity(user(""), empty_text_score=0.0) == 0.0
+    assert score_complexity(user(""), empty_text_score=0.3) == 0.3
 
 
 # ── worked examples, every term computed ──────────────────────────────────────

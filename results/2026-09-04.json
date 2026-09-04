@@ -1,10 +1,16 @@
 {
   "provenance": {
-    "schema_version": 1,
-    "run_at": "2026-09-04T14:42:27+00:00",
-    "harness_git_sha": "1f007e181f0040265dee3393016b38b3c3d44bd5",
-    "package_version": "0.1.0",
-    "config_sha256": "a6d50b3c60afa6c30a33a6437c0c3a7397999bbd4f0dc4433cc40bfe74336900",
+    "schema_version": 2,
+    "run_at": "2026-09-04T16:50:29+00:00",
+    "harness_git_sha": "9c6b73b606a97d7094c72f632f92c39afa55b96d",
+    "package_version": "0.2.0",
+    "config_sha256": "dfbe704b5509f0ed3d4fa283598337321968b0f13e3db30c387614792a01f49a",
+    "thresholds_sha256": "a1909d35aa7e0c4c86f192dd3774fdca9a872cf686b7d48a41a19e04dc30c3d1",
+    "datasets_sha256": {
+      "e1_routing.jsonl": "d167ae37e5e457f5e56c4c54169d9353e81d315cd7365d35bd71a55a4767f0d3",
+      "e5_malformed.jsonl": "390e80c41ebf607e02f5e463a2c1407828c4936dbdda7a5f2dac60035db94076"
+    },
+    "split_assignment_sha256": "51850bcb26e0f6a8f881498f3fa937a90ceb529b413811cb65a61ccb503044e8",
     "python": "3.12.14",
     "platform": "macOS-15.8-x86_64-i386-64bit",
     "cost_usd": 0.0,
@@ -14,257 +20,797 @@
     "E1": {
       "family": "E1",
       "dataset": "e1_routing.jsonl",
-      "dataset_sha256": "690f644ad0feaecbfc6486b86dcebef91067cf875925eae6ede267e938fad335",
-      "rows": 36,
+      "dataset_sha256": "d167ae37e5e457f5e56c4c54169d9353e81d315cd7365d35bd71a55a4767f0d3",
+      "split_assignment_sha256": "51850bcb26e0f6a8f881498f3fa937a90ceb529b413811cb65a61ccb503044e8",
+      "rows": 120,
       "splits": {
-        "train": 9,
-        "dev": 9,
-        "test": 18
+        "train": 50,
+        "dev": 20,
+        "test": 50
+      },
+      "anchored_per_split": {
+        "train": 25,
+        "dev": 10,
+        "test": 25
+      },
+      "sources": {
+        "public:arc-challenge": 6,
+        "public:arc-easy": 7,
+        "public:dolly-15k": 17,
+        "public:gsm8k": 5,
+        "public:humaneval": 5,
+        "public:math": 20,
+        "synthetic": 60
       },
       "test": {
-        "n": 18,
-        "exact": 10,
-        "accuracy": 0.5555555555555556,
+        "n": 50,
+        "exact": 22,
+        "accuracy": 0.44,
         "wilson_95": [
-          0.3371606942825164,
-          0.7544076889861088
+          0.3116198721023534,
+          0.5769421319985648
         ],
-        "off_by_one": 8,
-        "off_by_one_rate": 0.4444444444444444,
-        "over_routed": 2,
-        "under_routed": 6,
+        "off_by_one": 18,
+        "off_by_one_rate": 0.36,
+        "over_routed": 5,
+        "under_routed": 23,
         "confusion": {
           "SIMPLE": {
-            "SIMPLE": 4,
-            "MEDIUM": 0,
-            "COMPLEX": 0,
-            "REASONING": 0
-          },
-          "MEDIUM": {
-            "SIMPLE": 4,
-            "MEDIUM": 0,
-            "COMPLEX": 0,
-            "REASONING": 0
-          },
-          "COMPLEX": {
-            "SIMPLE": 0,
-            "MEDIUM": 2,
-            "COMPLEX": 2,
-            "REASONING": 2
-          },
-          "REASONING": {
-            "SIMPLE": 0,
-            "MEDIUM": 0,
-            "COMPLEX": 0,
-            "REASONING": 4
-          }
-        },
-        "directional": {
-          "simple_routed_above_complex": [],
-          "reasoning_routed_below_complex": []
-        },
-        "misses": [
-          {
-            "id": "e1-010",
-            "expected": "MEDIUM",
-            "predicted": "SIMPLE",
-            "score": 0.004,
-            "rationale": "short creative task, no analysis"
-          },
-          {
-            "id": "e1-012",
-            "expected": "MEDIUM",
-            "predicted": "SIMPLE",
-            "score": 0.0067,
-            "rationale": "short drafting task"
-          },
-          {
-            "id": "e1-014",
-            "expected": "MEDIUM",
-            "predicted": "SIMPLE",
-            "score": 0.0053,
-            "rationale": "factual explain, short"
-          },
-          {
-            "id": "e1-016",
-            "expected": "MEDIUM",
-            "predicted": "SIMPLE",
-            "score": 0.0067,
-            "rationale": "basic arithmetic with a formula"
-          },
-          {
-            "id": "e1-018",
-            "expected": "COMPLEX",
-            "predicted": "MEDIUM",
-            "score": 0.089,
-            "rationale": "basic code task"
-          },
-          {
-            "id": "e1-020",
-            "expected": "COMPLEX",
-            "predicted": "REASONING",
-            "score": 0.3217,
-            "rationale": "small code change"
-          },
-          {
-            "id": "e1-022",
-            "expected": "COMPLEX",
-            "predicted": "REASONING",
-            "score": 0.3377,
-            "rationale": "technical diagnosis"
-          },
-          {
-            "id": "e1-024",
-            "expected": "COMPLEX",
-            "predicted": "MEDIUM",
-            "score": 0.087,
-            "rationale": "scripting task"
-          }
-        ]
-      },
-      "test_anchored": null,
-      "test_synthetic": {
-        "n": 18,
-        "exact": 10,
-        "accuracy": 0.5555555555555556,
-        "wilson_95": [
-          0.3371606942825164,
-          0.7544076889861088
-        ],
-        "off_by_one": 8,
-        "off_by_one_rate": 0.4444444444444444,
-        "over_routed": 2,
-        "under_routed": 6,
-        "confusion": {
-          "SIMPLE": {
-            "SIMPLE": 4,
-            "MEDIUM": 0,
-            "COMPLEX": 0,
-            "REASONING": 0
-          },
-          "MEDIUM": {
-            "SIMPLE": 4,
-            "MEDIUM": 0,
-            "COMPLEX": 0,
-            "REASONING": 0
-          },
-          "COMPLEX": {
-            "SIMPLE": 0,
-            "MEDIUM": 2,
-            "COMPLEX": 2,
-            "REASONING": 2
-          },
-          "REASONING": {
-            "SIMPLE": 0,
-            "MEDIUM": 0,
-            "COMPLEX": 0,
-            "REASONING": 4
-          }
-        },
-        "directional": {
-          "simple_routed_above_complex": [],
-          "reasoning_routed_below_complex": []
-        },
-        "misses": [
-          {
-            "id": "e1-010",
-            "expected": "MEDIUM",
-            "predicted": "SIMPLE",
-            "score": 0.004,
-            "rationale": "short creative task, no analysis"
-          },
-          {
-            "id": "e1-012",
-            "expected": "MEDIUM",
-            "predicted": "SIMPLE",
-            "score": 0.0067,
-            "rationale": "short drafting task"
-          },
-          {
-            "id": "e1-014",
-            "expected": "MEDIUM",
-            "predicted": "SIMPLE",
-            "score": 0.0053,
-            "rationale": "factual explain, short"
-          },
-          {
-            "id": "e1-016",
-            "expected": "MEDIUM",
-            "predicted": "SIMPLE",
-            "score": 0.0067,
-            "rationale": "basic arithmetic with a formula"
-          },
-          {
-            "id": "e1-018",
-            "expected": "COMPLEX",
-            "predicted": "MEDIUM",
-            "score": 0.089,
-            "rationale": "basic code task"
-          },
-          {
-            "id": "e1-020",
-            "expected": "COMPLEX",
-            "predicted": "REASONING",
-            "score": 0.3217,
-            "rationale": "small code change"
-          },
-          {
-            "id": "e1-022",
-            "expected": "COMPLEX",
-            "predicted": "REASONING",
-            "score": 0.3377,
-            "rationale": "technical diagnosis"
-          },
-          {
-            "id": "e1-024",
-            "expected": "COMPLEX",
-            "predicted": "MEDIUM",
-            "score": 0.087,
-            "rationale": "scripting task"
-          }
-        ]
-      },
-      "dev": {
-        "n": 9,
-        "exact": 5,
-        "accuracy": 0.5555555555555556,
-        "wilson_95": [
-          0.2666473457440297,
-          0.811224570528086
-        ],
-        "off_by_one": 4,
-        "off_by_one_rate": 0.4444444444444444,
-        "over_routed": 1,
-        "under_routed": 3,
-        "confusion": {
-          "SIMPLE": {
-            "SIMPLE": 2,
-            "MEDIUM": 0,
-            "COMPLEX": 0,
-            "REASONING": 0
-          },
-          "MEDIUM": {
-            "SIMPLE": 2,
-            "MEDIUM": 0,
-            "COMPLEX": 0,
-            "REASONING": 0
-          },
-          "COMPLEX": {
-            "SIMPLE": 0,
-            "MEDIUM": 0,
-            "COMPLEX": 2,
-            "REASONING": 1
-          },
-          "REASONING": {
-            "SIMPLE": 0,
+            "SIMPLE": 12,
             "MEDIUM": 0,
             "COMPLEX": 1,
-            "REASONING": 1
+            "REASONING": 0
+          },
+          "MEDIUM": {
+            "SIMPLE": 11,
+            "MEDIUM": 1,
+            "COMPLEX": 0,
+            "REASONING": 0
+          },
+          "COMPLEX": {
+            "SIMPLE": 4,
+            "MEDIUM": 2,
+            "COMPLEX": 4,
+            "REASONING": 4
+          },
+          "REASONING": {
+            "SIMPLE": 5,
+            "MEDIUM": 0,
+            "COMPLEX": 1,
+            "REASONING": 5
+          }
+        },
+        "directional": {
+          "simple_routed_above_complex": [],
+          "reasoning_routed_below_complex": [
+            "e1-085",
+            "e1-087",
+            "e1-090",
+            "e1-092",
+            "e1-095"
+          ]
+        },
+        "misses": [
+          {
+            "id": "e1-010",
+            "expected": "MEDIUM",
+            "predicted": "SIMPLE",
+            "score": 0.004,
+            "source": "synthetic",
+            "anchored": false,
+            "rationale": "short creative task, no analysis"
+          },
+          {
+            "id": "e1-012",
+            "expected": "MEDIUM",
+            "predicted": "SIMPLE",
+            "score": 0.0067,
+            "source": "synthetic",
+            "anchored": false,
+            "rationale": "short drafting task"
+          },
+          {
+            "id": "e1-014",
+            "expected": "MEDIUM",
+            "predicted": "SIMPLE",
+            "score": 0.0053,
+            "source": "synthetic",
+            "anchored": false,
+            "rationale": "factual explain, short"
+          },
+          {
+            "id": "e1-016",
+            "expected": "MEDIUM",
+            "predicted": "SIMPLE",
+            "score": 0.0067,
+            "source": "synthetic",
+            "anchored": false,
+            "rationale": "basic arithmetic with a formula"
+          },
+          {
+            "id": "e1-018",
+            "expected": "COMPLEX",
+            "predicted": "MEDIUM",
+            "score": 0.089,
+            "source": "synthetic",
+            "anchored": false,
+            "rationale": "basic code task"
+          },
+          {
+            "id": "e1-020",
+            "expected": "COMPLEX",
+            "predicted": "REASONING",
+            "score": 0.3217,
+            "source": "synthetic",
+            "anchored": false,
+            "rationale": "small code change"
+          },
+          {
+            "id": "e1-022",
+            "expected": "COMPLEX",
+            "predicted": "REASONING",
+            "score": 0.3377,
+            "source": "synthetic",
+            "anchored": false,
+            "rationale": "technical diagnosis"
+          },
+          {
+            "id": "e1-024",
+            "expected": "COMPLEX",
+            "predicted": "MEDIUM",
+            "score": 0.087,
+            "source": "synthetic",
+            "anchored": false,
+            "rationale": "scripting task"
+          },
+          {
+            "id": "e1-039",
+            "expected": "SIMPLE",
+            "predicted": "COMPLEX",
+            "score": 0.117,
+            "source": "public:arc-easy",
+            "anchored": true,
+            "rationale": "anchor-mapping-v1: allenai/ai2_arc config=ARC-Easy -> SIMPLE"
+          },
+          {
+            "id": "e1-054",
+            "expected": "MEDIUM",
+            "predicted": "SIMPLE",
+            "score": 0.0183,
+            "source": "public:arc-challenge",
+            "anchored": true,
+            "rationale": "anchor-mapping-v1: allenai/ai2_arc config=ARC-Challenge -> MEDIUM"
+          },
+          {
+            "id": "e1-059",
+            "expected": "MEDIUM",
+            "predicted": "SIMPLE",
+            "score": 0.009,
+            "source": "public:dolly-15k",
+            "anchored": true,
+            "rationale": "anchor-mapping-v1: databricks/databricks-dolly-15k category=brainstorming -> MEDIUM"
+          },
+          {
+            "id": "e1-061",
+            "expected": "MEDIUM",
+            "predicted": "SIMPLE",
+            "score": 0.0123,
+            "source": "public:dolly-15k",
+            "anchored": true,
+            "rationale": "anchor-mapping-v1: databricks/databricks-dolly-15k category=creative_writing -> MEDIUM"
+          },
+          {
+            "id": "e1-063",
+            "expected": "MEDIUM",
+            "predicted": "SIMPLE",
+            "score": 0.009,
+            "source": "public:dolly-15k",
+            "anchored": true,
+            "rationale": "anchor-mapping-v1: databricks/databricks-dolly-15k category=creative_writing -> MEDIUM"
+          },
+          {
+            "id": "e1-066",
+            "expected": "MEDIUM",
+            "predicted": "SIMPLE",
+            "score": 0.0,
+            "source": "public:dolly-15k",
+            "anchored": true,
+            "rationale": "anchor-mapping-v1: databricks/databricks-dolly-15k category=general_qa -> MEDIUM"
+          },
+          {
+            "id": "e1-068",
+            "expected": "COMPLEX",
+            "predicted": "SIMPLE",
+            "score": 0.0343,
+            "source": "public:gsm8k",
+            "anchored": true,
+            "rationale": "anchor-mapping-v1: openai/gsm8k config=main -> COMPLEX"
+          },
+          {
+            "id": "e1-071",
+            "expected": "COMPLEX",
+            "predicted": "SIMPLE",
+            "score": 0.0,
+            "source": "public:gsm8k",
+            "anchored": true,
+            "rationale": "anchor-mapping-v1: openai/gsm8k config=main -> COMPLEX"
+          },
+          {
+            "id": "e1-073",
+            "expected": "COMPLEX",
+            "predicted": "REASONING",
+            "score": 0.267,
+            "source": "public:humaneval",
+            "anchored": true,
+            "rationale": "anchor-mapping-v1: openai/openai_humaneval task_id=HumanEval/80 -> COMPLEX"
+          },
+          {
+            "id": "e1-075",
+            "expected": "COMPLEX",
+            "predicted": "REASONING",
+            "score": 0.2543,
+            "source": "public:humaneval",
+            "anchored": true,
+            "rationale": "anchor-mapping-v1: openai/openai_humaneval task_id=HumanEval/156 -> COMPLEX"
+          },
+          {
+            "id": "e1-078",
+            "expected": "COMPLEX",
+            "predicted": "SIMPLE",
+            "score": 0.0,
+            "source": "public:math",
+            "anchored": true,
+            "rationale": "anchor-mapping-v1: EleutherAI/hendrycks_math level=Level 2 -> COMPLEX"
+          },
+          {
+            "id": "e1-080",
+            "expected": "COMPLEX",
+            "predicted": "SIMPLE",
+            "score": 0.0,
+            "source": "public:math",
+            "anchored": true,
+            "rationale": "anchor-mapping-v1: EleutherAI/hendrycks_math level=Level 1 -> COMPLEX"
+          },
+          {
+            "id": "e1-083",
+            "expected": "REASONING",
+            "predicted": "COMPLEX",
+            "score": 0.093,
+            "source": "public:math",
+            "anchored": true,
+            "rationale": "anchor-mapping-v1: EleutherAI/hendrycks_math level=Level 4 -> REASONING"
+          },
+          {
+            "id": "e1-085",
+            "expected": "REASONING",
+            "predicted": "SIMPLE",
+            "score": 0.0,
+            "source": "public:math",
+            "anchored": true,
+            "rationale": "anchor-mapping-v1: EleutherAI/hendrycks_math level=Level 4 -> REASONING"
+          },
+          {
+            "id": "e1-087",
+            "expected": "REASONING",
+            "predicted": "SIMPLE",
+            "score": 0.0,
+            "source": "public:math",
+            "anchored": true,
+            "rationale": "anchor-mapping-v1: EleutherAI/hendrycks_math level=Level 5 -> REASONING"
+          },
+          {
+            "id": "e1-090",
+            "expected": "REASONING",
+            "predicted": "SIMPLE",
+            "score": 0.0,
+            "source": "public:math",
+            "anchored": true,
+            "rationale": "anchor-mapping-v1: EleutherAI/hendrycks_math level=Level 4 -> REASONING"
+          },
+          {
+            "id": "e1-092",
+            "expected": "REASONING",
+            "predicted": "SIMPLE",
+            "score": 0.0193,
+            "source": "public:math",
+            "anchored": true,
+            "rationale": "anchor-mapping-v1: EleutherAI/hendrycks_math level=Level 5 -> REASONING"
+          },
+          {
+            "id": "e1-095",
+            "expected": "REASONING",
+            "predicted": "SIMPLE",
+            "score": 0.0173,
+            "source": "public:math",
+            "anchored": true,
+            "rationale": "anchor-mapping-v1: EleutherAI/hendrycks_math level=Level 4 -> REASONING"
+          },
+          {
+            "id": "e1-098",
+            "expected": "MEDIUM",
+            "predicted": "SIMPLE",
+            "score": 0.0093,
+            "source": "synthetic",
+            "anchored": false,
+            "rationale": "light rewrite, no analysis"
+          },
+          {
+            "id": "e1-103",
+            "expected": "MEDIUM",
+            "predicted": "SIMPLE",
+            "score": 0.006,
+            "source": "synthetic",
+            "anchored": false,
+            "rationale": "short drafting task"
+          }
+        ]
+      },
+      "test_anchored": {
+        "n": 25,
+        "exact": 7,
+        "accuracy": 0.28,
+        "wilson_95": [
+          0.1428367383738157,
+          0.47576971896558296
+        ],
+        "off_by_one": 8,
+        "off_by_one_rate": 0.32,
+        "over_routed": 3,
+        "under_routed": 15,
+        "confusion": {
+          "SIMPLE": {
+            "SIMPLE": 6,
+            "MEDIUM": 0,
+            "COMPLEX": 1,
+            "REASONING": 0
+          },
+          "MEDIUM": {
+            "SIMPLE": 5,
+            "MEDIUM": 1,
+            "COMPLEX": 0,
+            "REASONING": 0
+          },
+          "COMPLEX": {
+            "SIMPLE": 4,
+            "MEDIUM": 0,
+            "COMPLEX": 0,
+            "REASONING": 2
+          },
+          "REASONING": {
+            "SIMPLE": 5,
+            "MEDIUM": 0,
+            "COMPLEX": 1,
+            "REASONING": 0
+          }
+        },
+        "directional": {
+          "simple_routed_above_complex": [],
+          "reasoning_routed_below_complex": [
+            "e1-085",
+            "e1-087",
+            "e1-090",
+            "e1-092",
+            "e1-095"
+          ]
+        },
+        "misses": [
+          {
+            "id": "e1-039",
+            "expected": "SIMPLE",
+            "predicted": "COMPLEX",
+            "score": 0.117,
+            "source": "public:arc-easy",
+            "anchored": true,
+            "rationale": "anchor-mapping-v1: allenai/ai2_arc config=ARC-Easy -> SIMPLE"
+          },
+          {
+            "id": "e1-054",
+            "expected": "MEDIUM",
+            "predicted": "SIMPLE",
+            "score": 0.0183,
+            "source": "public:arc-challenge",
+            "anchored": true,
+            "rationale": "anchor-mapping-v1: allenai/ai2_arc config=ARC-Challenge -> MEDIUM"
+          },
+          {
+            "id": "e1-059",
+            "expected": "MEDIUM",
+            "predicted": "SIMPLE",
+            "score": 0.009,
+            "source": "public:dolly-15k",
+            "anchored": true,
+            "rationale": "anchor-mapping-v1: databricks/databricks-dolly-15k category=brainstorming -> MEDIUM"
+          },
+          {
+            "id": "e1-061",
+            "expected": "MEDIUM",
+            "predicted": "SIMPLE",
+            "score": 0.0123,
+            "source": "public:dolly-15k",
+            "anchored": true,
+            "rationale": "anchor-mapping-v1: databricks/databricks-dolly-15k category=creative_writing -> MEDIUM"
+          },
+          {
+            "id": "e1-063",
+            "expected": "MEDIUM",
+            "predicted": "SIMPLE",
+            "score": 0.009,
+            "source": "public:dolly-15k",
+            "anchored": true,
+            "rationale": "anchor-mapping-v1: databricks/databricks-dolly-15k category=creative_writing -> MEDIUM"
+          },
+          {
+            "id": "e1-066",
+            "expected": "MEDIUM",
+            "predicted": "SIMPLE",
+            "score": 0.0,
+            "source": "public:dolly-15k",
+            "anchored": true,
+            "rationale": "anchor-mapping-v1: databricks/databricks-dolly-15k category=general_qa -> MEDIUM"
+          },
+          {
+            "id": "e1-068",
+            "expected": "COMPLEX",
+            "predicted": "SIMPLE",
+            "score": 0.0343,
+            "source": "public:gsm8k",
+            "anchored": true,
+            "rationale": "anchor-mapping-v1: openai/gsm8k config=main -> COMPLEX"
+          },
+          {
+            "id": "e1-071",
+            "expected": "COMPLEX",
+            "predicted": "SIMPLE",
+            "score": 0.0,
+            "source": "public:gsm8k",
+            "anchored": true,
+            "rationale": "anchor-mapping-v1: openai/gsm8k config=main -> COMPLEX"
+          },
+          {
+            "id": "e1-073",
+            "expected": "COMPLEX",
+            "predicted": "REASONING",
+            "score": 0.267,
+            "source": "public:humaneval",
+            "anchored": true,
+            "rationale": "anchor-mapping-v1: openai/openai_humaneval task_id=HumanEval/80 -> COMPLEX"
+          },
+          {
+            "id": "e1-075",
+            "expected": "COMPLEX",
+            "predicted": "REASONING",
+            "score": 0.2543,
+            "source": "public:humaneval",
+            "anchored": true,
+            "rationale": "anchor-mapping-v1: openai/openai_humaneval task_id=HumanEval/156 -> COMPLEX"
+          },
+          {
+            "id": "e1-078",
+            "expected": "COMPLEX",
+            "predicted": "SIMPLE",
+            "score": 0.0,
+            "source": "public:math",
+            "anchored": true,
+            "rationale": "anchor-mapping-v1: EleutherAI/hendrycks_math level=Level 2 -> COMPLEX"
+          },
+          {
+            "id": "e1-080",
+            "expected": "COMPLEX",
+            "predicted": "SIMPLE",
+            "score": 0.0,
+            "source": "public:math",
+            "anchored": true,
+            "rationale": "anchor-mapping-v1: EleutherAI/hendrycks_math level=Level 1 -> COMPLEX"
+          },
+          {
+            "id": "e1-083",
+            "expected": "REASONING",
+            "predicted": "COMPLEX",
+            "score": 0.093,
+            "source": "public:math",
+            "anchored": true,
+            "rationale": "anchor-mapping-v1: EleutherAI/hendrycks_math level=Level 4 -> REASONING"
+          },
+          {
+            "id": "e1-085",
+            "expected": "REASONING",
+            "predicted": "SIMPLE",
+            "score": 0.0,
+            "source": "public:math",
+            "anchored": true,
+            "rationale": "anchor-mapping-v1: EleutherAI/hendrycks_math level=Level 4 -> REASONING"
+          },
+          {
+            "id": "e1-087",
+            "expected": "REASONING",
+            "predicted": "SIMPLE",
+            "score": 0.0,
+            "source": "public:math",
+            "anchored": true,
+            "rationale": "anchor-mapping-v1: EleutherAI/hendrycks_math level=Level 5 -> REASONING"
+          },
+          {
+            "id": "e1-090",
+            "expected": "REASONING",
+            "predicted": "SIMPLE",
+            "score": 0.0,
+            "source": "public:math",
+            "anchored": true,
+            "rationale": "anchor-mapping-v1: EleutherAI/hendrycks_math level=Level 4 -> REASONING"
+          },
+          {
+            "id": "e1-092",
+            "expected": "REASONING",
+            "predicted": "SIMPLE",
+            "score": 0.0193,
+            "source": "public:math",
+            "anchored": true,
+            "rationale": "anchor-mapping-v1: EleutherAI/hendrycks_math level=Level 5 -> REASONING"
+          },
+          {
+            "id": "e1-095",
+            "expected": "REASONING",
+            "predicted": "SIMPLE",
+            "score": 0.0173,
+            "source": "public:math",
+            "anchored": true,
+            "rationale": "anchor-mapping-v1: EleutherAI/hendrycks_math level=Level 4 -> REASONING"
+          }
+        ]
+      },
+      "test_synthetic": {
+        "n": 25,
+        "exact": 15,
+        "accuracy": 0.6,
+        "wilson_95": [
+          0.40739127785127344,
+          0.7659694233580909
+        ],
+        "off_by_one": 10,
+        "off_by_one_rate": 0.4,
+        "over_routed": 2,
+        "under_routed": 8,
+        "confusion": {
+          "SIMPLE": {
+            "SIMPLE": 6,
+            "MEDIUM": 0,
+            "COMPLEX": 0,
+            "REASONING": 0
+          },
+          "MEDIUM": {
+            "SIMPLE": 6,
+            "MEDIUM": 0,
+            "COMPLEX": 0,
+            "REASONING": 0
+          },
+          "COMPLEX": {
+            "SIMPLE": 0,
+            "MEDIUM": 2,
+            "COMPLEX": 4,
+            "REASONING": 2
+          },
+          "REASONING": {
+            "SIMPLE": 0,
+            "MEDIUM": 0,
+            "COMPLEX": 0,
+            "REASONING": 5
           }
         },
         "directional": {
           "simple_routed_above_complex": [],
           "reasoning_routed_below_complex": []
+        },
+        "misses": [
+          {
+            "id": "e1-010",
+            "expected": "MEDIUM",
+            "predicted": "SIMPLE",
+            "score": 0.004,
+            "source": "synthetic",
+            "anchored": false,
+            "rationale": "short creative task, no analysis"
+          },
+          {
+            "id": "e1-012",
+            "expected": "MEDIUM",
+            "predicted": "SIMPLE",
+            "score": 0.0067,
+            "source": "synthetic",
+            "anchored": false,
+            "rationale": "short drafting task"
+          },
+          {
+            "id": "e1-014",
+            "expected": "MEDIUM",
+            "predicted": "SIMPLE",
+            "score": 0.0053,
+            "source": "synthetic",
+            "anchored": false,
+            "rationale": "factual explain, short"
+          },
+          {
+            "id": "e1-016",
+            "expected": "MEDIUM",
+            "predicted": "SIMPLE",
+            "score": 0.0067,
+            "source": "synthetic",
+            "anchored": false,
+            "rationale": "basic arithmetic with a formula"
+          },
+          {
+            "id": "e1-018",
+            "expected": "COMPLEX",
+            "predicted": "MEDIUM",
+            "score": 0.089,
+            "source": "synthetic",
+            "anchored": false,
+            "rationale": "basic code task"
+          },
+          {
+            "id": "e1-020",
+            "expected": "COMPLEX",
+            "predicted": "REASONING",
+            "score": 0.3217,
+            "source": "synthetic",
+            "anchored": false,
+            "rationale": "small code change"
+          },
+          {
+            "id": "e1-022",
+            "expected": "COMPLEX",
+            "predicted": "REASONING",
+            "score": 0.3377,
+            "source": "synthetic",
+            "anchored": false,
+            "rationale": "technical diagnosis"
+          },
+          {
+            "id": "e1-024",
+            "expected": "COMPLEX",
+            "predicted": "MEDIUM",
+            "score": 0.087,
+            "source": "synthetic",
+            "anchored": false,
+            "rationale": "scripting task"
+          },
+          {
+            "id": "e1-098",
+            "expected": "MEDIUM",
+            "predicted": "SIMPLE",
+            "score": 0.0093,
+            "source": "synthetic",
+            "anchored": false,
+            "rationale": "light rewrite, no analysis"
+          },
+          {
+            "id": "e1-103",
+            "expected": "MEDIUM",
+            "predicted": "SIMPLE",
+            "score": 0.006,
+            "source": "synthetic",
+            "anchored": false,
+            "rationale": "short drafting task"
+          }
+        ]
+      },
+      "test_anchored_minus_synthetic": -0.31999999999999995,
+      "test_by_source": {
+        "public:arc-challenge": {
+          "n": 2,
+          "exact": 1,
+          "accuracy": 0.5,
+          "wilson_95": [
+            0.09452865480086614,
+            0.9054713451991339
+          ],
+          "off_by_one_rate": 0.5
+        },
+        "public:arc-easy": {
+          "n": 3,
+          "exact": 2,
+          "accuracy": 0.6666666666666666,
+          "wilson_95": [
+            0.2076549551264879,
+            0.9385096847238394
+          ],
+          "off_by_one_rate": 0.0
+        },
+        "public:dolly-15k": {
+          "n": 8,
+          "exact": 4,
+          "accuracy": 0.5,
+          "wilson_95": [
+            0.21521252682444186,
+            0.7847874731755582
+          ],
+          "off_by_one_rate": 0.5
+        },
+        "public:gsm8k": {
+          "n": 2,
+          "exact": 0,
+          "accuracy": 0.0,
+          "wilson_95": [
+            0.0,
+            0.6576280471103807
+          ],
+          "off_by_one_rate": 0.0
+        },
+        "public:humaneval": {
+          "n": 2,
+          "exact": 0,
+          "accuracy": 0.0,
+          "wilson_95": [
+            0.0,
+            0.6576280471103807
+          ],
+          "off_by_one_rate": 1.0
+        },
+        "public:math": {
+          "n": 8,
+          "exact": 0,
+          "accuracy": 0.0,
+          "wilson_95": [
+            0.0,
+            0.3244156195108769
+          ],
+          "off_by_one_rate": 0.125
+        },
+        "synthetic": {
+          "n": 25,
+          "exact": 15,
+          "accuracy": 0.6,
+          "wilson_95": [
+            0.40739127785127344,
+            0.7659694233580909
+          ],
+          "off_by_one_rate": 0.4
+        }
+      },
+      "dev": {
+        "n": 20,
+        "exact": 8,
+        "accuracy": 0.4,
+        "wilson_95": [
+          0.21880396741419272,
+          0.613422057684794
+        ],
+        "off_by_one": 7,
+        "off_by_one_rate": 0.35,
+        "over_routed": 1,
+        "under_routed": 11,
+        "confusion": {
+          "SIMPLE": {
+            "SIMPLE": 4,
+            "MEDIUM": 0,
+            "COMPLEX": 0,
+            "REASONING": 0
+          },
+          "MEDIUM": {
+            "SIMPLE": 5,
+            "MEDIUM": 0,
+            "COMPLEX": 0,
+            "REASONING": 0
+          },
+          "COMPLEX": {
+            "SIMPLE": 2,
+            "MEDIUM": 0,
+            "COMPLEX": 2,
+            "REASONING": 1
+          },
+          "REASONING": {
+            "SIMPLE": 1,
+            "MEDIUM": 2,
+            "COMPLEX": 1,
+            "REASONING": 2
+          }
+        },
+        "directional": {
+          "simple_routed_above_complex": [],
+          "reasoning_routed_below_complex": [
+            "e1-082",
+            "e1-089",
+            "e1-094"
+          ]
         },
         "misses": [
           {
@@ -272,6 +818,8 @@
             "expected": "MEDIUM",
             "predicted": "SIMPLE",
             "score": 0.0173,
+            "source": "synthetic",
+            "anchored": false,
             "rationale": "short summarisation"
           },
           {
@@ -279,6 +827,8 @@
             "expected": "MEDIUM",
             "predicted": "SIMPLE",
             "score": 0.0067,
+            "source": "synthetic",
+            "anchored": false,
             "rationale": "light ideation"
           },
           {
@@ -286,6 +836,8 @@
             "expected": "COMPLEX",
             "predicted": "REASONING",
             "score": 0.267,
+            "source": "synthetic",
+            "anchored": false,
             "rationale": "technical comparison with a recommendation"
           },
           {
@@ -293,51 +845,133 @@
             "expected": "REASONING",
             "predicted": "COMPLEX",
             "score": 0.098,
+            "source": "synthetic",
+            "anchored": false,
             "rationale": "proof plus meta-analysis"
+          },
+          {
+            "id": "e1-053",
+            "expected": "MEDIUM",
+            "predicted": "SIMPLE",
+            "score": 0.023,
+            "source": "public:arc-challenge",
+            "anchored": true,
+            "rationale": "anchor-mapping-v1: allenai/ai2_arc config=ARC-Challenge -> MEDIUM"
+          },
+          {
+            "id": "e1-058",
+            "expected": "MEDIUM",
+            "predicted": "SIMPLE",
+            "score": 0.0103,
+            "source": "public:dolly-15k",
+            "anchored": true,
+            "rationale": "anchor-mapping-v1: databricks/databricks-dolly-15k category=brainstorming -> MEDIUM"
+          },
+          {
+            "id": "e1-065",
+            "expected": "MEDIUM",
+            "predicted": "SIMPLE",
+            "score": 0.0,
+            "source": "public:dolly-15k",
+            "anchored": true,
+            "rationale": "anchor-mapping-v1: databricks/databricks-dolly-15k category=general_qa -> MEDIUM"
+          },
+          {
+            "id": "e1-070",
+            "expected": "COMPLEX",
+            "predicted": "SIMPLE",
+            "score": 0.0133,
+            "source": "public:gsm8k",
+            "anchored": true,
+            "rationale": "anchor-mapping-v1: openai/gsm8k config=main -> COMPLEX"
+          },
+          {
+            "id": "e1-077",
+            "expected": "COMPLEX",
+            "predicted": "SIMPLE",
+            "score": 0.0,
+            "source": "public:math",
+            "anchored": true,
+            "rationale": "anchor-mapping-v1: EleutherAI/hendrycks_math level=Level 2 -> COMPLEX"
+          },
+          {
+            "id": "e1-082",
+            "expected": "REASONING",
+            "predicted": "MEDIUM",
+            "score": 0.084,
+            "source": "public:math",
+            "anchored": true,
+            "rationale": "anchor-mapping-v1: EleutherAI/hendrycks_math level=Level 5 -> REASONING"
+          },
+          {
+            "id": "e1-089",
+            "expected": "REASONING",
+            "predicted": "SIMPLE",
+            "score": 0.0,
+            "source": "public:math",
+            "anchored": true,
+            "rationale": "anchor-mapping-v1: EleutherAI/hendrycks_math level=Level 5 -> REASONING"
+          },
+          {
+            "id": "e1-094",
+            "expected": "REASONING",
+            "predicted": "MEDIUM",
+            "score": 0.0773,
+            "source": "public:math",
+            "anchored": true,
+            "rationale": "anchor-mapping-v1: EleutherAI/hendrycks_math level=Level 4 -> REASONING"
           }
         ]
       },
       "train": {
-        "n": 9,
-        "exact": 7,
-        "accuracy": 0.7777777777777778,
+        "n": 50,
+        "exact": 23,
+        "accuracy": 0.46,
         "wilson_95": [
-          0.4525833436728054,
-          0.9367762376877727
+          0.3296943460178263,
+          0.5960136567161192
         ],
-        "off_by_one": 2,
-        "off_by_one_rate": 0.2222222222222222,
-        "over_routed": 1,
-        "under_routed": 1,
+        "off_by_one": 15,
+        "off_by_one_rate": 0.3,
+        "over_routed": 5,
+        "under_routed": 22,
         "confusion": {
           "SIMPLE": {
-            "SIMPLE": 3,
+            "SIMPLE": 11,
             "MEDIUM": 0,
             "COMPLEX": 0,
-            "REASONING": 0
+            "REASONING": 1
           },
           "MEDIUM": {
-            "SIMPLE": 1,
-            "MEDIUM": 0,
-            "COMPLEX": 1,
-            "REASONING": 0
-          },
-          "COMPLEX": {
-            "SIMPLE": 0,
+            "SIMPLE": 9,
             "MEDIUM": 0,
             "COMPLEX": 3,
             "REASONING": 0
           },
-          "REASONING": {
-            "SIMPLE": 0,
+          "COMPLEX": {
+            "SIMPLE": 6,
             "MEDIUM": 0,
-            "COMPLEX": 0,
+            "COMPLEX": 8,
             "REASONING": 1
+          },
+          "REASONING": {
+            "SIMPLE": 4,
+            "MEDIUM": 1,
+            "COMPLEX": 2,
+            "REASONING": 4
           }
         },
         "directional": {
-          "simple_routed_above_complex": [],
-          "reasoning_routed_below_complex": []
+          "simple_routed_above_complex": [
+            "e1-043"
+          ],
+          "reasoning_routed_below_complex": [
+            "e1-084",
+            "e1-086",
+            "e1-088",
+            "e1-093",
+            "e1-096"
+          ]
         },
         "misses": [
           {
@@ -345,6 +979,8 @@
             "expected": "MEDIUM",
             "predicted": "SIMPLE",
             "score": 0.0093,
+            "source": "synthetic",
+            "anchored": false,
             "rationale": "light editing"
           },
           {
@@ -352,24 +988,992 @@
             "expected": "MEDIUM",
             "predicted": "COMPLEX",
             "score": 0.092,
+            "source": "synthetic",
+            "anchored": false,
             "rationale": "light editing"
+          },
+          {
+            "id": "e1-043",
+            "expected": "SIMPLE",
+            "predicted": "REASONING",
+            "score": 0.279,
+            "source": "public:arc-easy",
+            "anchored": true,
+            "rationale": "anchor-mapping-v1: allenai/ai2_arc config=ARC-Easy -> SIMPLE"
+          },
+          {
+            "id": "e1-052",
+            "expected": "MEDIUM",
+            "predicted": "SIMPLE",
+            "score": 0.027,
+            "source": "public:arc-challenge",
+            "anchored": true,
+            "rationale": "anchor-mapping-v1: allenai/ai2_arc config=ARC-Challenge -> MEDIUM"
+          },
+          {
+            "id": "e1-055",
+            "expected": "MEDIUM",
+            "predicted": "SIMPLE",
+            "score": 0.0257,
+            "source": "public:arc-challenge",
+            "anchored": true,
+            "rationale": "anchor-mapping-v1: allenai/ai2_arc config=ARC-Challenge -> MEDIUM"
+          },
+          {
+            "id": "e1-057",
+            "expected": "MEDIUM",
+            "predicted": "COMPLEX",
+            "score": 0.215,
+            "source": "public:arc-challenge",
+            "anchored": true,
+            "rationale": "anchor-mapping-v1: allenai/ai2_arc config=ARC-Challenge -> MEDIUM"
+          },
+          {
+            "id": "e1-060",
+            "expected": "MEDIUM",
+            "predicted": "SIMPLE",
+            "score": 0.0053,
+            "source": "public:dolly-15k",
+            "anchored": true,
+            "rationale": "anchor-mapping-v1: databricks/databricks-dolly-15k category=brainstorming -> MEDIUM"
+          },
+          {
+            "id": "e1-062",
+            "expected": "MEDIUM",
+            "predicted": "SIMPLE",
+            "score": 0.009,
+            "source": "public:dolly-15k",
+            "anchored": true,
+            "rationale": "anchor-mapping-v1: databricks/databricks-dolly-15k category=creative_writing -> MEDIUM"
+          },
+          {
+            "id": "e1-064",
+            "expected": "MEDIUM",
+            "predicted": "SIMPLE",
+            "score": 0.0083,
+            "source": "public:dolly-15k",
+            "anchored": true,
+            "rationale": "anchor-mapping-v1: databricks/databricks-dolly-15k category=general_qa -> MEDIUM"
+          },
+          {
+            "id": "e1-067",
+            "expected": "COMPLEX",
+            "predicted": "SIMPLE",
+            "score": 0.037,
+            "source": "public:gsm8k",
+            "anchored": true,
+            "rationale": "anchor-mapping-v1: openai/gsm8k config=main -> COMPLEX"
+          },
+          {
+            "id": "e1-069",
+            "expected": "COMPLEX",
+            "predicted": "SIMPLE",
+            "score": 0.002,
+            "source": "public:gsm8k",
+            "anchored": true,
+            "rationale": "anchor-mapping-v1: openai/gsm8k config=main -> COMPLEX"
+          },
+          {
+            "id": "e1-076",
+            "expected": "COMPLEX",
+            "predicted": "REASONING",
+            "score": 0.2567,
+            "source": "public:humaneval",
+            "anchored": true,
+            "rationale": "anchor-mapping-v1: openai/openai_humaneval task_id=HumanEval/138 -> COMPLEX"
+          },
+          {
+            "id": "e1-079",
+            "expected": "COMPLEX",
+            "predicted": "SIMPLE",
+            "score": 0.0087,
+            "source": "public:math",
+            "anchored": true,
+            "rationale": "anchor-mapping-v1: EleutherAI/hendrycks_math level=Level 1 -> COMPLEX"
+          },
+          {
+            "id": "e1-081",
+            "expected": "COMPLEX",
+            "predicted": "SIMPLE",
+            "score": 0.0027,
+            "source": "public:math",
+            "anchored": true,
+            "rationale": "anchor-mapping-v1: EleutherAI/hendrycks_math level=Level 2 -> COMPLEX"
+          },
+          {
+            "id": "e1-084",
+            "expected": "REASONING",
+            "predicted": "SIMPLE",
+            "score": 0.0007,
+            "source": "public:math",
+            "anchored": true,
+            "rationale": "anchor-mapping-v1: EleutherAI/hendrycks_math level=Level 4 -> REASONING"
+          },
+          {
+            "id": "e1-086",
+            "expected": "REASONING",
+            "predicted": "SIMPLE",
+            "score": 0.0,
+            "source": "public:math",
+            "anchored": true,
+            "rationale": "anchor-mapping-v1: EleutherAI/hendrycks_math level=Level 4 -> REASONING"
+          },
+          {
+            "id": "e1-088",
+            "expected": "REASONING",
+            "predicted": "SIMPLE",
+            "score": 0.0113,
+            "source": "public:math",
+            "anchored": true,
+            "rationale": "anchor-mapping-v1: EleutherAI/hendrycks_math level=Level 5 -> REASONING"
+          },
+          {
+            "id": "e1-091",
+            "expected": "REASONING",
+            "predicted": "COMPLEX",
+            "score": 0.0953,
+            "source": "public:math",
+            "anchored": true,
+            "rationale": "anchor-mapping-v1: EleutherAI/hendrycks_math level=Level 5 -> REASONING"
+          },
+          {
+            "id": "e1-093",
+            "expected": "REASONING",
+            "predicted": "MEDIUM",
+            "score": 0.0807,
+            "source": "public:math",
+            "anchored": true,
+            "rationale": "anchor-mapping-v1: EleutherAI/hendrycks_math level=Level 4 -> REASONING"
+          },
+          {
+            "id": "e1-096",
+            "expected": "REASONING",
+            "predicted": "SIMPLE",
+            "score": 0.0,
+            "source": "public:math",
+            "anchored": true,
+            "rationale": "anchor-mapping-v1: EleutherAI/hendrycks_math level=Level 4 -> REASONING"
+          },
+          {
+            "id": "e1-108",
+            "expected": "MEDIUM",
+            "predicted": "SIMPLE",
+            "score": 0.006,
+            "source": "synthetic",
+            "anchored": false,
+            "rationale": "short structured drafting"
+          },
+          {
+            "id": "e1-109",
+            "expected": "MEDIUM",
+            "predicted": "SIMPLE",
+            "score": 0.006,
+            "source": "synthetic",
+            "anchored": false,
+            "rationale": "short creative task"
+          },
+          {
+            "id": "e1-110",
+            "expected": "MEDIUM",
+            "predicted": "SIMPLE",
+            "score": 0.0073,
+            "source": "synthetic",
+            "anchored": false,
+            "rationale": "short factual explanation"
+          },
+          {
+            "id": "e1-111",
+            "expected": "MEDIUM",
+            "predicted": "COMPLEX",
+            "score": 0.1007,
+            "source": "synthetic",
+            "anchored": false,
+            "rationale": "compression edit, no analysis"
+          },
+          {
+            "id": "e1-112",
+            "expected": "COMPLEX",
+            "predicted": "SIMPLE",
+            "score": 0.008,
+            "source": "synthetic",
+            "anchored": false,
+            "rationale": "code artefact plus explanation"
+          },
+          {
+            "id": "e1-114",
+            "expected": "COMPLEX",
+            "predicted": "SIMPLE",
+            "score": 0.0333,
+            "source": "synthetic",
+            "anchored": false,
+            "rationale": "multi-step technical procedure"
+          },
+          {
+            "id": "e1-116",
+            "expected": "REASONING",
+            "predicted": "COMPLEX",
+            "score": 0.1013,
+            "source": "synthetic",
+            "anchored": false,
+            "rationale": "proof plus meta-analysis"
           }
+        ]
+      },
+      "corpus": {
+        "n": 120,
+        "exact": 53,
+        "accuracy": 0.44166666666666665,
+        "wilson_95": [
+          0.3559959731595542,
+          0.530956391796971
+        ],
+        "off_by_one": 40,
+        "off_by_one_rate": 0.3333333333333333,
+        "over_routed": 11,
+        "under_routed": 56,
+        "confusion": {
+          "SIMPLE": {
+            "SIMPLE": 27,
+            "MEDIUM": 0,
+            "COMPLEX": 1,
+            "REASONING": 1
+          },
+          "MEDIUM": {
+            "SIMPLE": 25,
+            "MEDIUM": 1,
+            "COMPLEX": 3,
+            "REASONING": 0
+          },
+          "COMPLEX": {
+            "SIMPLE": 12,
+            "MEDIUM": 2,
+            "COMPLEX": 14,
+            "REASONING": 6
+          },
+          "REASONING": {
+            "SIMPLE": 10,
+            "MEDIUM": 3,
+            "COMPLEX": 4,
+            "REASONING": 11
+          }
+        },
+        "directional": {
+          "simple_routed_above_complex": [
+            "e1-043"
+          ],
+          "reasoning_routed_below_complex": [
+            "e1-082",
+            "e1-084",
+            "e1-085",
+            "e1-086",
+            "e1-087",
+            "e1-088",
+            "e1-089",
+            "e1-090",
+            "e1-092",
+            "e1-093",
+            "e1-094",
+            "e1-095",
+            "e1-096"
+          ]
+        },
+        "misses": [
+          {
+            "id": "e1-010",
+            "expected": "MEDIUM",
+            "predicted": "SIMPLE",
+            "score": 0.004,
+            "source": "synthetic",
+            "anchored": false,
+            "rationale": "short creative task, no analysis"
+          },
+          {
+            "id": "e1-011",
+            "expected": "MEDIUM",
+            "predicted": "SIMPLE",
+            "score": 0.0173,
+            "source": "synthetic",
+            "anchored": false,
+            "rationale": "short summarisation"
+          },
+          {
+            "id": "e1-012",
+            "expected": "MEDIUM",
+            "predicted": "SIMPLE",
+            "score": 0.0067,
+            "source": "synthetic",
+            "anchored": false,
+            "rationale": "short drafting task"
+          },
+          {
+            "id": "e1-013",
+            "expected": "MEDIUM",
+            "predicted": "SIMPLE",
+            "score": 0.0093,
+            "source": "synthetic",
+            "anchored": false,
+            "rationale": "light editing"
+          },
+          {
+            "id": "e1-014",
+            "expected": "MEDIUM",
+            "predicted": "SIMPLE",
+            "score": 0.0053,
+            "source": "synthetic",
+            "anchored": false,
+            "rationale": "factual explain, short"
+          },
+          {
+            "id": "e1-015",
+            "expected": "MEDIUM",
+            "predicted": "SIMPLE",
+            "score": 0.0067,
+            "source": "synthetic",
+            "anchored": false,
+            "rationale": "light ideation"
+          },
+          {
+            "id": "e1-016",
+            "expected": "MEDIUM",
+            "predicted": "SIMPLE",
+            "score": 0.0067,
+            "source": "synthetic",
+            "anchored": false,
+            "rationale": "basic arithmetic with a formula"
+          },
+          {
+            "id": "e1-017",
+            "expected": "MEDIUM",
+            "predicted": "COMPLEX",
+            "score": 0.092,
+            "source": "synthetic",
+            "anchored": false,
+            "rationale": "light editing"
+          },
+          {
+            "id": "e1-018",
+            "expected": "COMPLEX",
+            "predicted": "MEDIUM",
+            "score": 0.089,
+            "source": "synthetic",
+            "anchored": false,
+            "rationale": "basic code task"
+          },
+          {
+            "id": "e1-020",
+            "expected": "COMPLEX",
+            "predicted": "REASONING",
+            "score": 0.3217,
+            "source": "synthetic",
+            "anchored": false,
+            "rationale": "small code change"
+          },
+          {
+            "id": "e1-022",
+            "expected": "COMPLEX",
+            "predicted": "REASONING",
+            "score": 0.3377,
+            "source": "synthetic",
+            "anchored": false,
+            "rationale": "technical diagnosis"
+          },
+          {
+            "id": "e1-023",
+            "expected": "COMPLEX",
+            "predicted": "REASONING",
+            "score": 0.267,
+            "source": "synthetic",
+            "anchored": false,
+            "rationale": "technical comparison with a recommendation"
+          },
+          {
+            "id": "e1-024",
+            "expected": "COMPLEX",
+            "predicted": "MEDIUM",
+            "score": 0.087,
+            "source": "synthetic",
+            "anchored": false,
+            "rationale": "scripting task"
+          },
+          {
+            "id": "e1-027",
+            "expected": "REASONING",
+            "predicted": "COMPLEX",
+            "score": 0.098,
+            "source": "synthetic",
+            "anchored": false,
+            "rationale": "proof plus meta-analysis"
+          },
+          {
+            "id": "e1-039",
+            "expected": "SIMPLE",
+            "predicted": "COMPLEX",
+            "score": 0.117,
+            "source": "public:arc-easy",
+            "anchored": true,
+            "rationale": "anchor-mapping-v1: allenai/ai2_arc config=ARC-Easy -> SIMPLE"
+          },
+          {
+            "id": "e1-043",
+            "expected": "SIMPLE",
+            "predicted": "REASONING",
+            "score": 0.279,
+            "source": "public:arc-easy",
+            "anchored": true,
+            "rationale": "anchor-mapping-v1: allenai/ai2_arc config=ARC-Easy -> SIMPLE"
+          },
+          {
+            "id": "e1-052",
+            "expected": "MEDIUM",
+            "predicted": "SIMPLE",
+            "score": 0.027,
+            "source": "public:arc-challenge",
+            "anchored": true,
+            "rationale": "anchor-mapping-v1: allenai/ai2_arc config=ARC-Challenge -> MEDIUM"
+          },
+          {
+            "id": "e1-053",
+            "expected": "MEDIUM",
+            "predicted": "SIMPLE",
+            "score": 0.023,
+            "source": "public:arc-challenge",
+            "anchored": true,
+            "rationale": "anchor-mapping-v1: allenai/ai2_arc config=ARC-Challenge -> MEDIUM"
+          },
+          {
+            "id": "e1-054",
+            "expected": "MEDIUM",
+            "predicted": "SIMPLE",
+            "score": 0.0183,
+            "source": "public:arc-challenge",
+            "anchored": true,
+            "rationale": "anchor-mapping-v1: allenai/ai2_arc config=ARC-Challenge -> MEDIUM"
+          },
+          {
+            "id": "e1-055",
+            "expected": "MEDIUM",
+            "predicted": "SIMPLE",
+            "score": 0.0257,
+            "source": "public:arc-challenge",
+            "anchored": true,
+            "rationale": "anchor-mapping-v1: allenai/ai2_arc config=ARC-Challenge -> MEDIUM"
+          },
+          {
+            "id": "e1-057",
+            "expected": "MEDIUM",
+            "predicted": "COMPLEX",
+            "score": 0.215,
+            "source": "public:arc-challenge",
+            "anchored": true,
+            "rationale": "anchor-mapping-v1: allenai/ai2_arc config=ARC-Challenge -> MEDIUM"
+          },
+          {
+            "id": "e1-058",
+            "expected": "MEDIUM",
+            "predicted": "SIMPLE",
+            "score": 0.0103,
+            "source": "public:dolly-15k",
+            "anchored": true,
+            "rationale": "anchor-mapping-v1: databricks/databricks-dolly-15k category=brainstorming -> MEDIUM"
+          },
+          {
+            "id": "e1-059",
+            "expected": "MEDIUM",
+            "predicted": "SIMPLE",
+            "score": 0.009,
+            "source": "public:dolly-15k",
+            "anchored": true,
+            "rationale": "anchor-mapping-v1: databricks/databricks-dolly-15k category=brainstorming -> MEDIUM"
+          },
+          {
+            "id": "e1-060",
+            "expected": "MEDIUM",
+            "predicted": "SIMPLE",
+            "score": 0.0053,
+            "source": "public:dolly-15k",
+            "anchored": true,
+            "rationale": "anchor-mapping-v1: databricks/databricks-dolly-15k category=brainstorming -> MEDIUM"
+          },
+          {
+            "id": "e1-061",
+            "expected": "MEDIUM",
+            "predicted": "SIMPLE",
+            "score": 0.0123,
+            "source": "public:dolly-15k",
+            "anchored": true,
+            "rationale": "anchor-mapping-v1: databricks/databricks-dolly-15k category=creative_writing -> MEDIUM"
+          },
+          {
+            "id": "e1-062",
+            "expected": "MEDIUM",
+            "predicted": "SIMPLE",
+            "score": 0.009,
+            "source": "public:dolly-15k",
+            "anchored": true,
+            "rationale": "anchor-mapping-v1: databricks/databricks-dolly-15k category=creative_writing -> MEDIUM"
+          },
+          {
+            "id": "e1-063",
+            "expected": "MEDIUM",
+            "predicted": "SIMPLE",
+            "score": 0.009,
+            "source": "public:dolly-15k",
+            "anchored": true,
+            "rationale": "anchor-mapping-v1: databricks/databricks-dolly-15k category=creative_writing -> MEDIUM"
+          },
+          {
+            "id": "e1-064",
+            "expected": "MEDIUM",
+            "predicted": "SIMPLE",
+            "score": 0.0083,
+            "source": "public:dolly-15k",
+            "anchored": true,
+            "rationale": "anchor-mapping-v1: databricks/databricks-dolly-15k category=general_qa -> MEDIUM"
+          },
+          {
+            "id": "e1-065",
+            "expected": "MEDIUM",
+            "predicted": "SIMPLE",
+            "score": 0.0,
+            "source": "public:dolly-15k",
+            "anchored": true,
+            "rationale": "anchor-mapping-v1: databricks/databricks-dolly-15k category=general_qa -> MEDIUM"
+          },
+          {
+            "id": "e1-066",
+            "expected": "MEDIUM",
+            "predicted": "SIMPLE",
+            "score": 0.0,
+            "source": "public:dolly-15k",
+            "anchored": true,
+            "rationale": "anchor-mapping-v1: databricks/databricks-dolly-15k category=general_qa -> MEDIUM"
+          },
+          {
+            "id": "e1-067",
+            "expected": "COMPLEX",
+            "predicted": "SIMPLE",
+            "score": 0.037,
+            "source": "public:gsm8k",
+            "anchored": true,
+            "rationale": "anchor-mapping-v1: openai/gsm8k config=main -> COMPLEX"
+          },
+          {
+            "id": "e1-068",
+            "expected": "COMPLEX",
+            "predicted": "SIMPLE",
+            "score": 0.0343,
+            "source": "public:gsm8k",
+            "anchored": true,
+            "rationale": "anchor-mapping-v1: openai/gsm8k config=main -> COMPLEX"
+          },
+          {
+            "id": "e1-069",
+            "expected": "COMPLEX",
+            "predicted": "SIMPLE",
+            "score": 0.002,
+            "source": "public:gsm8k",
+            "anchored": true,
+            "rationale": "anchor-mapping-v1: openai/gsm8k config=main -> COMPLEX"
+          },
+          {
+            "id": "e1-070",
+            "expected": "COMPLEX",
+            "predicted": "SIMPLE",
+            "score": 0.0133,
+            "source": "public:gsm8k",
+            "anchored": true,
+            "rationale": "anchor-mapping-v1: openai/gsm8k config=main -> COMPLEX"
+          },
+          {
+            "id": "e1-071",
+            "expected": "COMPLEX",
+            "predicted": "SIMPLE",
+            "score": 0.0,
+            "source": "public:gsm8k",
+            "anchored": true,
+            "rationale": "anchor-mapping-v1: openai/gsm8k config=main -> COMPLEX"
+          },
+          {
+            "id": "e1-073",
+            "expected": "COMPLEX",
+            "predicted": "REASONING",
+            "score": 0.267,
+            "source": "public:humaneval",
+            "anchored": true,
+            "rationale": "anchor-mapping-v1: openai/openai_humaneval task_id=HumanEval/80 -> COMPLEX"
+          },
+          {
+            "id": "e1-075",
+            "expected": "COMPLEX",
+            "predicted": "REASONING",
+            "score": 0.2543,
+            "source": "public:humaneval",
+            "anchored": true,
+            "rationale": "anchor-mapping-v1: openai/openai_humaneval task_id=HumanEval/156 -> COMPLEX"
+          },
+          {
+            "id": "e1-076",
+            "expected": "COMPLEX",
+            "predicted": "REASONING",
+            "score": 0.2567,
+            "source": "public:humaneval",
+            "anchored": true,
+            "rationale": "anchor-mapping-v1: openai/openai_humaneval task_id=HumanEval/138 -> COMPLEX"
+          },
+          {
+            "id": "e1-077",
+            "expected": "COMPLEX",
+            "predicted": "SIMPLE",
+            "score": 0.0,
+            "source": "public:math",
+            "anchored": true,
+            "rationale": "anchor-mapping-v1: EleutherAI/hendrycks_math level=Level 2 -> COMPLEX"
+          },
+          {
+            "id": "e1-078",
+            "expected": "COMPLEX",
+            "predicted": "SIMPLE",
+            "score": 0.0,
+            "source": "public:math",
+            "anchored": true,
+            "rationale": "anchor-mapping-v1: EleutherAI/hendrycks_math level=Level 2 -> COMPLEX"
+          },
+          {
+            "id": "e1-079",
+            "expected": "COMPLEX",
+            "predicted": "SIMPLE",
+            "score": 0.0087,
+            "source": "public:math",
+            "anchored": true,
+            "rationale": "anchor-mapping-v1: EleutherAI/hendrycks_math level=Level 1 -> COMPLEX"
+          },
+          {
+            "id": "e1-080",
+            "expected": "COMPLEX",
+            "predicted": "SIMPLE",
+            "score": 0.0,
+            "source": "public:math",
+            "anchored": true,
+            "rationale": "anchor-mapping-v1: EleutherAI/hendrycks_math level=Level 1 -> COMPLEX"
+          },
+          {
+            "id": "e1-081",
+            "expected": "COMPLEX",
+            "predicted": "SIMPLE",
+            "score": 0.0027,
+            "source": "public:math",
+            "anchored": true,
+            "rationale": "anchor-mapping-v1: EleutherAI/hendrycks_math level=Level 2 -> COMPLEX"
+          },
+          {
+            "id": "e1-082",
+            "expected": "REASONING",
+            "predicted": "MEDIUM",
+            "score": 0.084,
+            "source": "public:math",
+            "anchored": true,
+            "rationale": "anchor-mapping-v1: EleutherAI/hendrycks_math level=Level 5 -> REASONING"
+          },
+          {
+            "id": "e1-083",
+            "expected": "REASONING",
+            "predicted": "COMPLEX",
+            "score": 0.093,
+            "source": "public:math",
+            "anchored": true,
+            "rationale": "anchor-mapping-v1: EleutherAI/hendrycks_math level=Level 4 -> REASONING"
+          },
+          {
+            "id": "e1-084",
+            "expected": "REASONING",
+            "predicted": "SIMPLE",
+            "score": 0.0007,
+            "source": "public:math",
+            "anchored": true,
+            "rationale": "anchor-mapping-v1: EleutherAI/hendrycks_math level=Level 4 -> REASONING"
+          },
+          {
+            "id": "e1-085",
+            "expected": "REASONING",
+            "predicted": "SIMPLE",
+            "score": 0.0,
+            "source": "public:math",
+            "anchored": true,
+            "rationale": "anchor-mapping-v1: EleutherAI/hendrycks_math level=Level 4 -> REASONING"
+          },
+          {
+            "id": "e1-086",
+            "expected": "REASONING",
+            "predicted": "SIMPLE",
+            "score": 0.0,
+            "source": "public:math",
+            "anchored": true,
+            "rationale": "anchor-mapping-v1: EleutherAI/hendrycks_math level=Level 4 -> REASONING"
+          },
+          {
+            "id": "e1-087",
+            "expected": "REASONING",
+            "predicted": "SIMPLE",
+            "score": 0.0,
+            "source": "public:math",
+            "anchored": true,
+            "rationale": "anchor-mapping-v1: EleutherAI/hendrycks_math level=Level 5 -> REASONING"
+          },
+          {
+            "id": "e1-088",
+            "expected": "REASONING",
+            "predicted": "SIMPLE",
+            "score": 0.0113,
+            "source": "public:math",
+            "anchored": true,
+            "rationale": "anchor-mapping-v1: EleutherAI/hendrycks_math level=Level 5 -> REASONING"
+          },
+          {
+            "id": "e1-089",
+            "expected": "REASONING",
+            "predicted": "SIMPLE",
+            "score": 0.0,
+            "source": "public:math",
+            "anchored": true,
+            "rationale": "anchor-mapping-v1: EleutherAI/hendrycks_math level=Level 5 -> REASONING"
+          },
+          {
+            "id": "e1-090",
+            "expected": "REASONING",
+            "predicted": "SIMPLE",
+            "score": 0.0,
+            "source": "public:math",
+            "anchored": true,
+            "rationale": "anchor-mapping-v1: EleutherAI/hendrycks_math level=Level 4 -> REASONING"
+          },
+          {
+            "id": "e1-091",
+            "expected": "REASONING",
+            "predicted": "COMPLEX",
+            "score": 0.0953,
+            "source": "public:math",
+            "anchored": true,
+            "rationale": "anchor-mapping-v1: EleutherAI/hendrycks_math level=Level 5 -> REASONING"
+          },
+          {
+            "id": "e1-092",
+            "expected": "REASONING",
+            "predicted": "SIMPLE",
+            "score": 0.0193,
+            "source": "public:math",
+            "anchored": true,
+            "rationale": "anchor-mapping-v1: EleutherAI/hendrycks_math level=Level 5 -> REASONING"
+          },
+          {
+            "id": "e1-093",
+            "expected": "REASONING",
+            "predicted": "MEDIUM",
+            "score": 0.0807,
+            "source": "public:math",
+            "anchored": true,
+            "rationale": "anchor-mapping-v1: EleutherAI/hendrycks_math level=Level 4 -> REASONING"
+          },
+          {
+            "id": "e1-094",
+            "expected": "REASONING",
+            "predicted": "MEDIUM",
+            "score": 0.0773,
+            "source": "public:math",
+            "anchored": true,
+            "rationale": "anchor-mapping-v1: EleutherAI/hendrycks_math level=Level 4 -> REASONING"
+          },
+          {
+            "id": "e1-095",
+            "expected": "REASONING",
+            "predicted": "SIMPLE",
+            "score": 0.0173,
+            "source": "public:math",
+            "anchored": true,
+            "rationale": "anchor-mapping-v1: EleutherAI/hendrycks_math level=Level 4 -> REASONING"
+          },
+          {
+            "id": "e1-096",
+            "expected": "REASONING",
+            "predicted": "SIMPLE",
+            "score": 0.0,
+            "source": "public:math",
+            "anchored": true,
+            "rationale": "anchor-mapping-v1: EleutherAI/hendrycks_math level=Level 4 -> REASONING"
+          },
+          {
+            "id": "e1-098",
+            "expected": "MEDIUM",
+            "predicted": "SIMPLE",
+            "score": 0.0093,
+            "source": "synthetic",
+            "anchored": false,
+            "rationale": "light rewrite, no analysis"
+          },
+          {
+            "id": "e1-103",
+            "expected": "MEDIUM",
+            "predicted": "SIMPLE",
+            "score": 0.006,
+            "source": "synthetic",
+            "anchored": false,
+            "rationale": "short drafting task"
+          },
+          {
+            "id": "e1-108",
+            "expected": "MEDIUM",
+            "predicted": "SIMPLE",
+            "score": 0.006,
+            "source": "synthetic",
+            "anchored": false,
+            "rationale": "short structured drafting"
+          },
+          {
+            "id": "e1-109",
+            "expected": "MEDIUM",
+            "predicted": "SIMPLE",
+            "score": 0.006,
+            "source": "synthetic",
+            "anchored": false,
+            "rationale": "short creative task"
+          },
+          {
+            "id": "e1-110",
+            "expected": "MEDIUM",
+            "predicted": "SIMPLE",
+            "score": 0.0073,
+            "source": "synthetic",
+            "anchored": false,
+            "rationale": "short factual explanation"
+          },
+          {
+            "id": "e1-111",
+            "expected": "MEDIUM",
+            "predicted": "COMPLEX",
+            "score": 0.1007,
+            "source": "synthetic",
+            "anchored": false,
+            "rationale": "compression edit, no analysis"
+          },
+          {
+            "id": "e1-112",
+            "expected": "COMPLEX",
+            "predicted": "SIMPLE",
+            "score": 0.008,
+            "source": "synthetic",
+            "anchored": false,
+            "rationale": "code artefact plus explanation"
+          },
+          {
+            "id": "e1-114",
+            "expected": "COMPLEX",
+            "predicted": "SIMPLE",
+            "score": 0.0333,
+            "source": "synthetic",
+            "anchored": false,
+            "rationale": "multi-step technical procedure"
+          },
+          {
+            "id": "e1-116",
+            "expected": "REASONING",
+            "predicted": "COMPLEX",
+            "score": 0.1013,
+            "source": "synthetic",
+            "anchored": false,
+            "rationale": "proof plus meta-analysis"
+          }
+        ]
+      },
+      "corpus_directional_violations": {
+        "simple_routed_above_complex": [
+          "e1-043"
+        ],
+        "reasoning_routed_below_complex": [
+          "e1-082",
+          "e1-084",
+          "e1-085",
+          "e1-086",
+          "e1-087",
+          "e1-088",
+          "e1-089",
+          "e1-090",
+          "e1-092",
+          "e1-093",
+          "e1-094",
+          "e1-095",
+          "e1-096"
         ]
       },
       "checks": {
         "directional_rules": {
           "passed": true,
-          "enforced": true
+          "enforced": true,
+          "new_violations": [],
+          "known_violations": [
+            "e1-085",
+            "e1-087",
+            "e1-090",
+            "e1-092",
+            "e1-095"
+          ],
+          "resolved_known_failures": [],
+          "note": "hard gate on any violation not listed in thresholds.yaml e1.directional.known_failures; the known list is published, not hidden"
         },
         "exact_min": {
           "passed": false,
           "enforced": false,
-          "threshold": 0.8
+          "threshold": 0.8,
+          "note": "directional: reported with its interval, not a hard gate"
         },
         "min_test_rows": {
-          "passed": false,
-          "enforced": false,
-          "threshold": 50
+          "passed": true,
+          "enforced": true,
+          "threshold": 50,
+          "actual": 50
+        },
+        "min_rows": {
+          "passed": true,
+          "enforced": true,
+          "threshold": 120,
+          "actual": 120
+        },
+        "min_train_rows": {
+          "passed": true,
+          "enforced": true,
+          "threshold": 50,
+          "actual": 50
+        },
+        "anchored_share_train": {
+          "passed": true,
+          "enforced": true,
+          "threshold": 0.4,
+          "actual": 0.5,
+          "anchored_rows": 25
+        },
+        "min_dev_rows": {
+          "passed": true,
+          "enforced": true,
+          "threshold": 20,
+          "actual": 20
+        },
+        "anchored_share_dev": {
+          "passed": true,
+          "enforced": true,
+          "threshold": 0.4,
+          "actual": 0.5,
+          "anchored_rows": 10
+        },
+        "anchored_share_test": {
+          "passed": true,
+          "enforced": true,
+          "threshold": 0.4,
+          "actual": 0.5,
+          "anchored_rows": 25
+        },
+        "min_anchored_test_rows": {
+          "passed": true,
+          "enforced": true,
+          "threshold": 20,
+          "actual": 25
         }
       },
       "passed": true,
@@ -377,6 +1981,8 @@
         {
           "id": "e1-001",
           "split": "train",
+          "source": "synthetic",
+          "anchored": false,
           "expected": "SIMPLE",
           "predicted": "SIMPLE",
           "scored_tier": "SIMPLE",
@@ -385,6 +1991,8 @@
         {
           "id": "e1-002",
           "split": "test",
+          "source": "synthetic",
+          "anchored": false,
           "expected": "SIMPLE",
           "predicted": "SIMPLE",
           "scored_tier": "SIMPLE",
@@ -393,6 +2001,8 @@
         {
           "id": "e1-003",
           "split": "dev",
+          "source": "synthetic",
+          "anchored": false,
           "expected": "SIMPLE",
           "predicted": "SIMPLE",
           "scored_tier": "SIMPLE",
@@ -401,6 +2011,8 @@
         {
           "id": "e1-004",
           "split": "test",
+          "source": "synthetic",
+          "anchored": false,
           "expected": "SIMPLE",
           "predicted": "SIMPLE",
           "scored_tier": "SIMPLE",
@@ -409,6 +2021,8 @@
         {
           "id": "e1-005",
           "split": "train",
+          "source": "synthetic",
+          "anchored": false,
           "expected": "SIMPLE",
           "predicted": "SIMPLE",
           "scored_tier": "SIMPLE",
@@ -417,6 +2031,8 @@
         {
           "id": "e1-006",
           "split": "test",
+          "source": "synthetic",
+          "anchored": false,
           "expected": "SIMPLE",
           "predicted": "SIMPLE",
           "scored_tier": "SIMPLE",
@@ -425,6 +2041,8 @@
         {
           "id": "e1-007",
           "split": "dev",
+          "source": "synthetic",
+          "anchored": false,
           "expected": "SIMPLE",
           "predicted": "SIMPLE",
           "scored_tier": "SIMPLE",
@@ -433,6 +2051,8 @@
         {
           "id": "e1-008",
           "split": "test",
+          "source": "synthetic",
+          "anchored": false,
           "expected": "SIMPLE",
           "predicted": "SIMPLE",
           "scored_tier": "SIMPLE",
@@ -441,6 +2061,8 @@
         {
           "id": "e1-009",
           "split": "train",
+          "source": "synthetic",
+          "anchored": false,
           "expected": "SIMPLE",
           "predicted": "SIMPLE",
           "scored_tier": "SIMPLE",
@@ -449,6 +2071,8 @@
         {
           "id": "e1-010",
           "split": "test",
+          "source": "synthetic",
+          "anchored": false,
           "expected": "MEDIUM",
           "predicted": "SIMPLE",
           "scored_tier": "SIMPLE",
@@ -457,6 +2081,8 @@
         {
           "id": "e1-011",
           "split": "dev",
+          "source": "synthetic",
+          "anchored": false,
           "expected": "MEDIUM",
           "predicted": "SIMPLE",
           "scored_tier": "SIMPLE",
@@ -465,6 +2091,8 @@
         {
           "id": "e1-012",
           "split": "test",
+          "source": "synthetic",
+          "anchored": false,
           "expected": "MEDIUM",
           "predicted": "SIMPLE",
           "scored_tier": "SIMPLE",
@@ -473,6 +2101,8 @@
         {
           "id": "e1-013",
           "split": "train",
+          "source": "synthetic",
+          "anchored": false,
           "expected": "MEDIUM",
           "predicted": "SIMPLE",
           "scored_tier": "SIMPLE",
@@ -481,6 +2111,8 @@
         {
           "id": "e1-014",
           "split": "test",
+          "source": "synthetic",
+          "anchored": false,
           "expected": "MEDIUM",
           "predicted": "SIMPLE",
           "scored_tier": "SIMPLE",
@@ -489,6 +2121,8 @@
         {
           "id": "e1-015",
           "split": "dev",
+          "source": "synthetic",
+          "anchored": false,
           "expected": "MEDIUM",
           "predicted": "SIMPLE",
           "scored_tier": "SIMPLE",
@@ -497,6 +2131,8 @@
         {
           "id": "e1-016",
           "split": "test",
+          "source": "synthetic",
+          "anchored": false,
           "expected": "MEDIUM",
           "predicted": "SIMPLE",
           "scored_tier": "SIMPLE",
@@ -505,6 +2141,8 @@
         {
           "id": "e1-017",
           "split": "train",
+          "source": "synthetic",
+          "anchored": false,
           "expected": "MEDIUM",
           "predicted": "COMPLEX",
           "scored_tier": "COMPLEX",
@@ -513,6 +2151,8 @@
         {
           "id": "e1-018",
           "split": "test",
+          "source": "synthetic",
+          "anchored": false,
           "expected": "COMPLEX",
           "predicted": "MEDIUM",
           "scored_tier": "MEDIUM",
@@ -521,6 +2161,8 @@
         {
           "id": "e1-019",
           "split": "dev",
+          "source": "synthetic",
+          "anchored": false,
           "expected": "COMPLEX",
           "predicted": "COMPLEX",
           "scored_tier": "COMPLEX",
@@ -529,6 +2171,8 @@
         {
           "id": "e1-020",
           "split": "test",
+          "source": "synthetic",
+          "anchored": false,
           "expected": "COMPLEX",
           "predicted": "REASONING",
           "scored_tier": "REASONING",
@@ -537,6 +2181,8 @@
         {
           "id": "e1-021",
           "split": "train",
+          "source": "synthetic",
+          "anchored": false,
           "expected": "COMPLEX",
           "predicted": "COMPLEX",
           "scored_tier": "COMPLEX",
@@ -545,6 +2191,8 @@
         {
           "id": "e1-022",
           "split": "test",
+          "source": "synthetic",
+          "anchored": false,
           "expected": "COMPLEX",
           "predicted": "REASONING",
           "scored_tier": "REASONING",
@@ -553,6 +2201,8 @@
         {
           "id": "e1-023",
           "split": "dev",
+          "source": "synthetic",
+          "anchored": false,
           "expected": "COMPLEX",
           "predicted": "REASONING",
           "scored_tier": "REASONING",
@@ -561,6 +2211,8 @@
         {
           "id": "e1-024",
           "split": "test",
+          "source": "synthetic",
+          "anchored": false,
           "expected": "COMPLEX",
           "predicted": "MEDIUM",
           "scored_tier": "MEDIUM",
@@ -569,6 +2221,8 @@
         {
           "id": "e1-025",
           "split": "train",
+          "source": "synthetic",
+          "anchored": false,
           "expected": "COMPLEX",
           "predicted": "COMPLEX",
           "scored_tier": "COMPLEX",
@@ -577,6 +2231,8 @@
         {
           "id": "e1-026",
           "split": "test",
+          "source": "synthetic",
+          "anchored": false,
           "expected": "COMPLEX",
           "predicted": "COMPLEX",
           "scored_tier": "COMPLEX",
@@ -585,6 +2241,8 @@
         {
           "id": "e1-027",
           "split": "dev",
+          "source": "synthetic",
+          "anchored": false,
           "expected": "REASONING",
           "predicted": "COMPLEX",
           "scored_tier": "COMPLEX",
@@ -593,6 +2251,8 @@
         {
           "id": "e1-028",
           "split": "test",
+          "source": "synthetic",
+          "anchored": false,
           "expected": "REASONING",
           "predicted": "REASONING",
           "scored_tier": "REASONING",
@@ -601,6 +2261,8 @@
         {
           "id": "e1-029",
           "split": "train",
+          "source": "synthetic",
+          "anchored": false,
           "expected": "REASONING",
           "predicted": "REASONING",
           "scored_tier": "REASONING",
@@ -609,6 +2271,8 @@
         {
           "id": "e1-030",
           "split": "test",
+          "source": "synthetic",
+          "anchored": false,
           "expected": "REASONING",
           "predicted": "REASONING",
           "scored_tier": "REASONING",
@@ -617,6 +2281,8 @@
         {
           "id": "e1-031",
           "split": "dev",
+          "source": "synthetic",
+          "anchored": false,
           "expected": "REASONING",
           "predicted": "REASONING",
           "scored_tier": "REASONING",
@@ -625,6 +2291,8 @@
         {
           "id": "e1-032",
           "split": "test",
+          "source": "synthetic",
+          "anchored": false,
           "expected": "REASONING",
           "predicted": "REASONING",
           "scored_tier": "REASONING",
@@ -633,6 +2301,8 @@
         {
           "id": "e1-033",
           "split": "train",
+          "source": "synthetic",
+          "anchored": false,
           "expected": "COMPLEX",
           "predicted": "COMPLEX",
           "scored_tier": "SIMPLE",
@@ -641,6 +2311,8 @@
         {
           "id": "e1-034",
           "split": "test",
+          "source": "synthetic",
+          "anchored": false,
           "expected": "COMPLEX",
           "predicted": "COMPLEX",
           "scored_tier": "MEDIUM",
@@ -649,6 +2321,8 @@
         {
           "id": "e1-035",
           "split": "dev",
+          "source": "synthetic",
+          "anchored": false,
           "expected": "COMPLEX",
           "predicted": "COMPLEX",
           "scored_tier": "SIMPLE",
@@ -657,25 +2331,870 @@
         {
           "id": "e1-036",
           "split": "test",
+          "source": "synthetic",
+          "anchored": false,
           "expected": "REASONING",
           "predicted": "REASONING",
           "scored_tier": "REASONING",
           "score": 0.2787
+        },
+        {
+          "id": "e1-037",
+          "split": "test",
+          "source": "public:arc-easy",
+          "anchored": true,
+          "expected": "SIMPLE",
+          "predicted": "SIMPLE",
+          "scored_tier": "SIMPLE",
+          "score": 0.0323
+        },
+        {
+          "id": "e1-038",
+          "split": "train",
+          "source": "public:arc-easy",
+          "anchored": true,
+          "expected": "SIMPLE",
+          "predicted": "SIMPLE",
+          "scored_tier": "SIMPLE",
+          "score": 0.0277
+        },
+        {
+          "id": "e1-039",
+          "split": "test",
+          "source": "public:arc-easy",
+          "anchored": true,
+          "expected": "SIMPLE",
+          "predicted": "COMPLEX",
+          "scored_tier": "COMPLEX",
+          "score": 0.117
+        },
+        {
+          "id": "e1-040",
+          "split": "train",
+          "source": "public:arc-easy",
+          "anchored": true,
+          "expected": "SIMPLE",
+          "predicted": "SIMPLE",
+          "scored_tier": "SIMPLE",
+          "score": 0.029
+        },
+        {
+          "id": "e1-041",
+          "split": "dev",
+          "source": "public:arc-easy",
+          "anchored": true,
+          "expected": "SIMPLE",
+          "predicted": "SIMPLE",
+          "scored_tier": "SIMPLE",
+          "score": 0.0263
+        },
+        {
+          "id": "e1-042",
+          "split": "test",
+          "source": "public:arc-easy",
+          "anchored": true,
+          "expected": "SIMPLE",
+          "predicted": "SIMPLE",
+          "scored_tier": "SIMPLE",
+          "score": 0.0237
+        },
+        {
+          "id": "e1-043",
+          "split": "train",
+          "source": "public:arc-easy",
+          "anchored": true,
+          "expected": "SIMPLE",
+          "predicted": "REASONING",
+          "scored_tier": "REASONING",
+          "score": 0.279
+        },
+        {
+          "id": "e1-044",
+          "split": "test",
+          "source": "public:dolly-15k",
+          "anchored": true,
+          "expected": "SIMPLE",
+          "predicted": "SIMPLE",
+          "scored_tier": "SIMPLE",
+          "score": 0.0
+        },
+        {
+          "id": "e1-045",
+          "split": "train",
+          "source": "public:dolly-15k",
+          "anchored": true,
+          "expected": "SIMPLE",
+          "predicted": "SIMPLE",
+          "scored_tier": "SIMPLE",
+          "score": 0.0
+        },
+        {
+          "id": "e1-046",
+          "split": "dev",
+          "source": "public:dolly-15k",
+          "anchored": true,
+          "expected": "SIMPLE",
+          "predicted": "SIMPLE",
+          "scored_tier": "SIMPLE",
+          "score": 0.009
+        },
+        {
+          "id": "e1-047",
+          "split": "test",
+          "source": "public:dolly-15k",
+          "anchored": true,
+          "expected": "SIMPLE",
+          "predicted": "SIMPLE",
+          "scored_tier": "SIMPLE",
+          "score": 0.0
+        },
+        {
+          "id": "e1-048",
+          "split": "train",
+          "source": "public:dolly-15k",
+          "anchored": true,
+          "expected": "SIMPLE",
+          "predicted": "SIMPLE",
+          "scored_tier": "SIMPLE",
+          "score": 0.0083
+        },
+        {
+          "id": "e1-049",
+          "split": "test",
+          "source": "public:dolly-15k",
+          "anchored": true,
+          "expected": "SIMPLE",
+          "predicted": "SIMPLE",
+          "scored_tier": "SIMPLE",
+          "score": 0.0073
+        },
+        {
+          "id": "e1-050",
+          "split": "train",
+          "source": "public:dolly-15k",
+          "anchored": true,
+          "expected": "SIMPLE",
+          "predicted": "SIMPLE",
+          "scored_tier": "SIMPLE",
+          "score": 0.016
+        },
+        {
+          "id": "e1-051",
+          "split": "test",
+          "source": "public:dolly-15k",
+          "anchored": true,
+          "expected": "SIMPLE",
+          "predicted": "SIMPLE",
+          "scored_tier": "SIMPLE",
+          "score": 0.0147
+        },
+        {
+          "id": "e1-052",
+          "split": "train",
+          "source": "public:arc-challenge",
+          "anchored": true,
+          "expected": "MEDIUM",
+          "predicted": "SIMPLE",
+          "scored_tier": "SIMPLE",
+          "score": 0.027
+        },
+        {
+          "id": "e1-053",
+          "split": "dev",
+          "source": "public:arc-challenge",
+          "anchored": true,
+          "expected": "MEDIUM",
+          "predicted": "SIMPLE",
+          "scored_tier": "SIMPLE",
+          "score": 0.023
+        },
+        {
+          "id": "e1-054",
+          "split": "test",
+          "source": "public:arc-challenge",
+          "anchored": true,
+          "expected": "MEDIUM",
+          "predicted": "SIMPLE",
+          "scored_tier": "SIMPLE",
+          "score": 0.0183
+        },
+        {
+          "id": "e1-055",
+          "split": "train",
+          "source": "public:arc-challenge",
+          "anchored": true,
+          "expected": "MEDIUM",
+          "predicted": "SIMPLE",
+          "scored_tier": "SIMPLE",
+          "score": 0.0257
+        },
+        {
+          "id": "e1-056",
+          "split": "test",
+          "source": "public:arc-challenge",
+          "anchored": true,
+          "expected": "MEDIUM",
+          "predicted": "MEDIUM",
+          "scored_tier": "MEDIUM",
+          "score": 0.0537
+        },
+        {
+          "id": "e1-057",
+          "split": "train",
+          "source": "public:arc-challenge",
+          "anchored": true,
+          "expected": "MEDIUM",
+          "predicted": "COMPLEX",
+          "scored_tier": "COMPLEX",
+          "score": 0.215
+        },
+        {
+          "id": "e1-058",
+          "split": "dev",
+          "source": "public:dolly-15k",
+          "anchored": true,
+          "expected": "MEDIUM",
+          "predicted": "SIMPLE",
+          "scored_tier": "SIMPLE",
+          "score": 0.0103
+        },
+        {
+          "id": "e1-059",
+          "split": "test",
+          "source": "public:dolly-15k",
+          "anchored": true,
+          "expected": "MEDIUM",
+          "predicted": "SIMPLE",
+          "scored_tier": "SIMPLE",
+          "score": 0.009
+        },
+        {
+          "id": "e1-060",
+          "split": "train",
+          "source": "public:dolly-15k",
+          "anchored": true,
+          "expected": "MEDIUM",
+          "predicted": "SIMPLE",
+          "scored_tier": "SIMPLE",
+          "score": 0.0053
+        },
+        {
+          "id": "e1-061",
+          "split": "test",
+          "source": "public:dolly-15k",
+          "anchored": true,
+          "expected": "MEDIUM",
+          "predicted": "SIMPLE",
+          "scored_tier": "SIMPLE",
+          "score": 0.0123
+        },
+        {
+          "id": "e1-062",
+          "split": "train",
+          "source": "public:dolly-15k",
+          "anchored": true,
+          "expected": "MEDIUM",
+          "predicted": "SIMPLE",
+          "scored_tier": "SIMPLE",
+          "score": 0.009
+        },
+        {
+          "id": "e1-063",
+          "split": "test",
+          "source": "public:dolly-15k",
+          "anchored": true,
+          "expected": "MEDIUM",
+          "predicted": "SIMPLE",
+          "scored_tier": "SIMPLE",
+          "score": 0.009
+        },
+        {
+          "id": "e1-064",
+          "split": "train",
+          "source": "public:dolly-15k",
+          "anchored": true,
+          "expected": "MEDIUM",
+          "predicted": "SIMPLE",
+          "scored_tier": "SIMPLE",
+          "score": 0.0083
+        },
+        {
+          "id": "e1-065",
+          "split": "dev",
+          "source": "public:dolly-15k",
+          "anchored": true,
+          "expected": "MEDIUM",
+          "predicted": "SIMPLE",
+          "scored_tier": "SIMPLE",
+          "score": 0.0
+        },
+        {
+          "id": "e1-066",
+          "split": "test",
+          "source": "public:dolly-15k",
+          "anchored": true,
+          "expected": "MEDIUM",
+          "predicted": "SIMPLE",
+          "scored_tier": "SIMPLE",
+          "score": 0.0
+        },
+        {
+          "id": "e1-067",
+          "split": "train",
+          "source": "public:gsm8k",
+          "anchored": true,
+          "expected": "COMPLEX",
+          "predicted": "SIMPLE",
+          "scored_tier": "SIMPLE",
+          "score": 0.037
+        },
+        {
+          "id": "e1-068",
+          "split": "test",
+          "source": "public:gsm8k",
+          "anchored": true,
+          "expected": "COMPLEX",
+          "predicted": "SIMPLE",
+          "scored_tier": "SIMPLE",
+          "score": 0.0343
+        },
+        {
+          "id": "e1-069",
+          "split": "train",
+          "source": "public:gsm8k",
+          "anchored": true,
+          "expected": "COMPLEX",
+          "predicted": "SIMPLE",
+          "scored_tier": "SIMPLE",
+          "score": 0.002
+        },
+        {
+          "id": "e1-070",
+          "split": "dev",
+          "source": "public:gsm8k",
+          "anchored": true,
+          "expected": "COMPLEX",
+          "predicted": "SIMPLE",
+          "scored_tier": "SIMPLE",
+          "score": 0.0133
+        },
+        {
+          "id": "e1-071",
+          "split": "test",
+          "source": "public:gsm8k",
+          "anchored": true,
+          "expected": "COMPLEX",
+          "predicted": "SIMPLE",
+          "scored_tier": "SIMPLE",
+          "score": 0.0
+        },
+        {
+          "id": "e1-072",
+          "split": "train",
+          "source": "public:humaneval",
+          "anchored": true,
+          "expected": "COMPLEX",
+          "predicted": "COMPLEX",
+          "scored_tier": "COMPLEX",
+          "score": 0.2397
+        },
+        {
+          "id": "e1-073",
+          "split": "test",
+          "source": "public:humaneval",
+          "anchored": true,
+          "expected": "COMPLEX",
+          "predicted": "REASONING",
+          "scored_tier": "REASONING",
+          "score": 0.267
+        },
+        {
+          "id": "e1-074",
+          "split": "train",
+          "source": "public:humaneval",
+          "anchored": true,
+          "expected": "COMPLEX",
+          "predicted": "COMPLEX",
+          "scored_tier": "COMPLEX",
+          "score": 0.1933
+        },
+        {
+          "id": "e1-075",
+          "split": "test",
+          "source": "public:humaneval",
+          "anchored": true,
+          "expected": "COMPLEX",
+          "predicted": "REASONING",
+          "scored_tier": "REASONING",
+          "score": 0.2543
+        },
+        {
+          "id": "e1-076",
+          "split": "train",
+          "source": "public:humaneval",
+          "anchored": true,
+          "expected": "COMPLEX",
+          "predicted": "REASONING",
+          "scored_tier": "REASONING",
+          "score": 0.2567
+        },
+        {
+          "id": "e1-077",
+          "split": "dev",
+          "source": "public:math",
+          "anchored": true,
+          "expected": "COMPLEX",
+          "predicted": "SIMPLE",
+          "scored_tier": "SIMPLE",
+          "score": 0.0
+        },
+        {
+          "id": "e1-078",
+          "split": "test",
+          "source": "public:math",
+          "anchored": true,
+          "expected": "COMPLEX",
+          "predicted": "SIMPLE",
+          "scored_tier": "SIMPLE",
+          "score": 0.0
+        },
+        {
+          "id": "e1-079",
+          "split": "train",
+          "source": "public:math",
+          "anchored": true,
+          "expected": "COMPLEX",
+          "predicted": "SIMPLE",
+          "scored_tier": "SIMPLE",
+          "score": 0.0087
+        },
+        {
+          "id": "e1-080",
+          "split": "test",
+          "source": "public:math",
+          "anchored": true,
+          "expected": "COMPLEX",
+          "predicted": "SIMPLE",
+          "scored_tier": "SIMPLE",
+          "score": 0.0
+        },
+        {
+          "id": "e1-081",
+          "split": "train",
+          "source": "public:math",
+          "anchored": true,
+          "expected": "COMPLEX",
+          "predicted": "SIMPLE",
+          "scored_tier": "SIMPLE",
+          "score": 0.0027
+        },
+        {
+          "id": "e1-082",
+          "split": "dev",
+          "source": "public:math",
+          "anchored": true,
+          "expected": "REASONING",
+          "predicted": "MEDIUM",
+          "scored_tier": "MEDIUM",
+          "score": 0.084
+        },
+        {
+          "id": "e1-083",
+          "split": "test",
+          "source": "public:math",
+          "anchored": true,
+          "expected": "REASONING",
+          "predicted": "COMPLEX",
+          "scored_tier": "COMPLEX",
+          "score": 0.093
+        },
+        {
+          "id": "e1-084",
+          "split": "train",
+          "source": "public:math",
+          "anchored": true,
+          "expected": "REASONING",
+          "predicted": "SIMPLE",
+          "scored_tier": "SIMPLE",
+          "score": 0.0007
+        },
+        {
+          "id": "e1-085",
+          "split": "test",
+          "source": "public:math",
+          "anchored": true,
+          "expected": "REASONING",
+          "predicted": "SIMPLE",
+          "scored_tier": "SIMPLE",
+          "score": 0.0
+        },
+        {
+          "id": "e1-086",
+          "split": "train",
+          "source": "public:math",
+          "anchored": true,
+          "expected": "REASONING",
+          "predicted": "SIMPLE",
+          "scored_tier": "SIMPLE",
+          "score": 0.0
+        },
+        {
+          "id": "e1-087",
+          "split": "test",
+          "source": "public:math",
+          "anchored": true,
+          "expected": "REASONING",
+          "predicted": "SIMPLE",
+          "scored_tier": "SIMPLE",
+          "score": 0.0
+        },
+        {
+          "id": "e1-088",
+          "split": "train",
+          "source": "public:math",
+          "anchored": true,
+          "expected": "REASONING",
+          "predicted": "SIMPLE",
+          "scored_tier": "SIMPLE",
+          "score": 0.0113
+        },
+        {
+          "id": "e1-089",
+          "split": "dev",
+          "source": "public:math",
+          "anchored": true,
+          "expected": "REASONING",
+          "predicted": "SIMPLE",
+          "scored_tier": "SIMPLE",
+          "score": 0.0
+        },
+        {
+          "id": "e1-090",
+          "split": "test",
+          "source": "public:math",
+          "anchored": true,
+          "expected": "REASONING",
+          "predicted": "SIMPLE",
+          "scored_tier": "SIMPLE",
+          "score": 0.0
+        },
+        {
+          "id": "e1-091",
+          "split": "train",
+          "source": "public:math",
+          "anchored": true,
+          "expected": "REASONING",
+          "predicted": "COMPLEX",
+          "scored_tier": "COMPLEX",
+          "score": 0.0953
+        },
+        {
+          "id": "e1-092",
+          "split": "test",
+          "source": "public:math",
+          "anchored": true,
+          "expected": "REASONING",
+          "predicted": "SIMPLE",
+          "scored_tier": "SIMPLE",
+          "score": 0.0193
+        },
+        {
+          "id": "e1-093",
+          "split": "train",
+          "source": "public:math",
+          "anchored": true,
+          "expected": "REASONING",
+          "predicted": "MEDIUM",
+          "scored_tier": "MEDIUM",
+          "score": 0.0807
+        },
+        {
+          "id": "e1-094",
+          "split": "dev",
+          "source": "public:math",
+          "anchored": true,
+          "expected": "REASONING",
+          "predicted": "MEDIUM",
+          "scored_tier": "MEDIUM",
+          "score": 0.0773
+        },
+        {
+          "id": "e1-095",
+          "split": "test",
+          "source": "public:math",
+          "anchored": true,
+          "expected": "REASONING",
+          "predicted": "SIMPLE",
+          "scored_tier": "SIMPLE",
+          "score": 0.0173
+        },
+        {
+          "id": "e1-096",
+          "split": "train",
+          "source": "public:math",
+          "anchored": true,
+          "expected": "REASONING",
+          "predicted": "SIMPLE",
+          "scored_tier": "SIMPLE",
+          "score": 0.0
+        },
+        {
+          "id": "e1-097",
+          "split": "test",
+          "source": "synthetic",
+          "anchored": false,
+          "expected": "SIMPLE",
+          "predicted": "SIMPLE",
+          "scored_tier": "SIMPLE",
+          "score": 0.004
+        },
+        {
+          "id": "e1-098",
+          "split": "test",
+          "source": "synthetic",
+          "anchored": false,
+          "expected": "MEDIUM",
+          "predicted": "SIMPLE",
+          "scored_tier": "SIMPLE",
+          "score": 0.0093
+        },
+        {
+          "id": "e1-099",
+          "split": "test",
+          "source": "synthetic",
+          "anchored": false,
+          "expected": "COMPLEX",
+          "predicted": "COMPLEX",
+          "scored_tier": "COMPLEX",
+          "score": 0.1703
+        },
+        {
+          "id": "e1-100",
+          "split": "test",
+          "source": "synthetic",
+          "anchored": false,
+          "expected": "REASONING",
+          "predicted": "REASONING",
+          "scored_tier": "REASONING",
+          "score": 0.2653
+        },
+        {
+          "id": "e1-101",
+          "split": "test",
+          "source": "synthetic",
+          "anchored": false,
+          "expected": "COMPLEX",
+          "predicted": "COMPLEX",
+          "scored_tier": "SIMPLE",
+          "score": 0.01
+        },
+        {
+          "id": "e1-102",
+          "split": "test",
+          "source": "synthetic",
+          "anchored": false,
+          "expected": "SIMPLE",
+          "predicted": "SIMPLE",
+          "scored_tier": "SIMPLE",
+          "score": 0.0063
+        },
+        {
+          "id": "e1-103",
+          "split": "test",
+          "source": "synthetic",
+          "anchored": false,
+          "expected": "MEDIUM",
+          "predicted": "SIMPLE",
+          "scored_tier": "SIMPLE",
+          "score": 0.006
+        },
+        {
+          "id": "e1-104",
+          "split": "dev",
+          "source": "synthetic",
+          "anchored": false,
+          "expected": "REASONING",
+          "predicted": "REASONING",
+          "scored_tier": "REASONING",
+          "score": 0.266
+        },
+        {
+          "id": "e1-105",
+          "split": "train",
+          "source": "synthetic",
+          "anchored": false,
+          "expected": "SIMPLE",
+          "predicted": "SIMPLE",
+          "scored_tier": "SIMPLE",
+          "score": 0.0
+        },
+        {
+          "id": "e1-106",
+          "split": "train",
+          "source": "synthetic",
+          "anchored": false,
+          "expected": "SIMPLE",
+          "predicted": "SIMPLE",
+          "scored_tier": "SIMPLE",
+          "score": 0.0
+        },
+        {
+          "id": "e1-107",
+          "split": "train",
+          "source": "synthetic",
+          "anchored": false,
+          "expected": "SIMPLE",
+          "predicted": "SIMPLE",
+          "scored_tier": "SIMPLE",
+          "score": 0.0
+        },
+        {
+          "id": "e1-108",
+          "split": "train",
+          "source": "synthetic",
+          "anchored": false,
+          "expected": "MEDIUM",
+          "predicted": "SIMPLE",
+          "scored_tier": "SIMPLE",
+          "score": 0.006
+        },
+        {
+          "id": "e1-109",
+          "split": "train",
+          "source": "synthetic",
+          "anchored": false,
+          "expected": "MEDIUM",
+          "predicted": "SIMPLE",
+          "scored_tier": "SIMPLE",
+          "score": 0.006
+        },
+        {
+          "id": "e1-110",
+          "split": "train",
+          "source": "synthetic",
+          "anchored": false,
+          "expected": "MEDIUM",
+          "predicted": "SIMPLE",
+          "scored_tier": "SIMPLE",
+          "score": 0.0073
+        },
+        {
+          "id": "e1-111",
+          "split": "train",
+          "source": "synthetic",
+          "anchored": false,
+          "expected": "MEDIUM",
+          "predicted": "COMPLEX",
+          "scored_tier": "COMPLEX",
+          "score": 0.1007
+        },
+        {
+          "id": "e1-112",
+          "split": "train",
+          "source": "synthetic",
+          "anchored": false,
+          "expected": "COMPLEX",
+          "predicted": "SIMPLE",
+          "scored_tier": "SIMPLE",
+          "score": 0.008
+        },
+        {
+          "id": "e1-113",
+          "split": "train",
+          "source": "synthetic",
+          "anchored": false,
+          "expected": "COMPLEX",
+          "predicted": "COMPLEX",
+          "scored_tier": "COMPLEX",
+          "score": 0.2307
+        },
+        {
+          "id": "e1-114",
+          "split": "train",
+          "source": "synthetic",
+          "anchored": false,
+          "expected": "COMPLEX",
+          "predicted": "SIMPLE",
+          "scored_tier": "SIMPLE",
+          "score": 0.0333
+        },
+        {
+          "id": "e1-115",
+          "split": "train",
+          "source": "synthetic",
+          "anchored": false,
+          "expected": "COMPLEX",
+          "predicted": "COMPLEX",
+          "scored_tier": "COMPLEX",
+          "score": 0.1787
+        },
+        {
+          "id": "e1-116",
+          "split": "train",
+          "source": "synthetic",
+          "anchored": false,
+          "expected": "REASONING",
+          "predicted": "COMPLEX",
+          "scored_tier": "COMPLEX",
+          "score": 0.1013
+        },
+        {
+          "id": "e1-117",
+          "split": "train",
+          "source": "synthetic",
+          "anchored": false,
+          "expected": "REASONING",
+          "predicted": "REASONING",
+          "scored_tier": "REASONING",
+          "score": 0.4353
+        },
+        {
+          "id": "e1-118",
+          "split": "train",
+          "source": "synthetic",
+          "anchored": false,
+          "expected": "REASONING",
+          "predicted": "REASONING",
+          "scored_tier": "REASONING",
+          "score": 0.2627
+        },
+        {
+          "id": "e1-119",
+          "split": "train",
+          "source": "synthetic",
+          "anchored": false,
+          "expected": "COMPLEX",
+          "predicted": "COMPLEX",
+          "scored_tier": "SIMPLE",
+          "score": 0.006
+        },
+        {
+          "id": "e1-120",
+          "split": "train",
+          "source": "synthetic",
+          "anchored": false,
+          "expected": "REASONING",
+          "predicted": "REASONING",
+          "scored_tier": "REASONING",
+          "score": 0.3563
         }
       ]
     },
     "E4": {
       "family": "E4",
       "baseline": {
-        "recorded": "2026-09-04T14:33:58+00:00",
-        "harness_git_sha": "8670545bd8af947cb62fc8e922c46e00447eaf84",
-        "dataset_sha256": "690f644ad0feaecbfc6486b86dcebef91067cf875925eae6ede267e938fad335",
-        "accuracy": 0.6111111111111112,
-        "rows": 36
+        "recorded": "2026-09-04T16:50:29+00:00",
+        "harness_git_sha": "9c6b73b606a97d7094c72f632f92c39afa55b96d",
+        "dataset_sha256": "d167ae37e5e457f5e56c4c54169d9353e81d315cd7365d35bd71a55a4767f0d3",
+        "accuracy": 0.44166666666666665,
+        "rows": 120
       },
       "dataset_changed_since_baseline": false,
-      "corpus_rows": 36,
-      "current_accuracy": 0.6111111111111112,
+      "corpus_rows": 120,
+      "current_accuracy": 0.44166666666666665,
+      "common_rows": 120,
+      "baseline_accuracy_on_common_rows": 0.44166666666666665,
+      "current_accuracy_on_common_rows": 0.44166666666666665,
       "drop_points": 0.0,
       "max_drop_points": 2.0,
       "changed_rows": [],
@@ -686,7 +3205,7 @@
     "E5": {
       "family": "E5",
       "dataset": "e5_malformed.jsonl",
-      "dataset_sha256": "27ca675fd83f7945b04bb2630a7a66528a47f87decd8163f50960bdd221b2d3f",
+      "dataset_sha256": "390e80c41ebf607e02f5e463a2c1407828c4936dbdda7a5f2dac60035db94076",
       "rows": 9,
       "failed": [],
       "passed": true,
@@ -694,20 +3213,20 @@
         {
           "id": "e5-001",
           "class": "no-user-message",
-          "expected": "REASONING",
-          "predicted": "REASONING",
-          "score": 0.3,
+          "expected": "SIMPLE",
+          "predicted": "SIMPLE",
+          "score": 0.0,
           "empty_branch": true,
           "error": null,
           "passed": true,
-          "note": "No user turn at all: the empty branch fires and the mid-scale default lands in REASONING."
+          "note": "No user turn at all: the empty branch fires and the empty-text score (0.0) lands in SIMPLE."
         },
         {
           "id": "e5-002",
           "class": "empty-user-content",
-          "expected": "REASONING",
-          "predicted": "REASONING",
-          "score": 0.3,
+          "expected": "SIMPLE",
+          "predicted": "SIMPLE",
+          "score": 0.0,
           "empty_branch": true,
           "error": null,
           "passed": true,
@@ -716,9 +3235,9 @@
         {
           "id": "e5-003",
           "class": "whitespace-only",
-          "expected": "REASONING",
-          "predicted": "REASONING",
-          "score": 0.3,
+          "expected": "SIMPLE",
+          "predicted": "SIMPLE",
+          "score": 0.0,
           "empty_branch": true,
           "error": null,
           "passed": true,
@@ -727,9 +3246,9 @@
         {
           "id": "e5-004",
           "class": "image-only-turn",
-          "expected": "REASONING",
-          "predicted": "REASONING",
-          "score": 0.3,
+          "expected": "SIMPLE",
+          "predicted": "SIMPLE",
+          "score": 0.0,
           "empty_branch": true,
           "error": null,
           "passed": true,
@@ -782,13 +3301,13 @@
         {
           "id": "e5-009",
           "class": "empty-text-with-tools",
-          "expected": "REASONING",
-          "predicted": "REASONING",
-          "score": 0.3,
+          "expected": "COMPLEX",
+          "predicted": "COMPLEX",
+          "score": 0.0,
           "empty_branch": true,
           "error": null,
           "passed": true,
-          "note": "Empty text plus tools: the empty default already exceeds the floor, so the floor is a no-op."
+          "note": "Empty text plus tools: the empty branch scores 0.0 and the tool-bearing floor promotes the request to COMPLEX."
         }
       ]
     }
