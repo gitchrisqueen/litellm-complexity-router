@@ -126,3 +126,72 @@ def test_guard_runs_as_a_script_on_this_repo() -> None:
     )
     assert proc.returncode == 0, proc.stdout + proc.stderr
     assert "CLEAN" in proc.stdout
+
+
+# ── hardening (M-R2): spans, canonical separators, no substring cap, NFKC, blobs ──
+
+
+def test_span_inside_path_and_hyphenated_identifier_is_a_candidate() -> None:
+    g = load_guard()
+    got = set(g.candidates("model: openai/zzqx-term-v2 and my-zzqx-term-x"))
+    assert "zzqx-term" in got
+    assert "zzqx-term-v2" in got
+    assert "term-v2" in got
+
+
+def test_separator_variants_are_canonicalised() -> None:
+    g = load_guard()
+    for written in ("zzqx_term", "zzqx.term", "zzqx/term", "zzqx:term"):
+        got = set(g.candidates(f"x {written} y"))
+        assert "zzqx-term" in got, written
+        assert "zzqxterm" in got, written
+
+
+def test_long_term_inside_longer_word_is_found(tmp_path: Path) -> None:
+    g = load_guard()
+    term = "zzqxtermlongerthantwelvechars"  # 29 chars, beyond the old 12-char window
+    (tmp_path / "a.txt").write_text(f"prefix{term}suffix\n")
+    dl = write_denylist(tmp_path / "dl.sha256", [term])
+    assert g.main(["--denylist", str(dl), "--root", str(tmp_path), "--no-history", "--quiet"]) == 1
+
+
+def test_zero_width_and_fullwidth_forms_are_normalised(tmp_path: Path) -> None:
+    g = load_guard()
+    (tmp_path / "a.txt").write_text("zz​qx‍term and ｚｚｑｘｔｅｒｍ\n")
+    dl = write_denylist(tmp_path / "dl.sha256", ["zzqxterm"])
+    assert g.main(["--denylist", str(dl), "--root", str(tmp_path), "--no-history", "--quiet"]) == 1
+
+
+def test_cyrillic_lookalikes_are_folded() -> None:
+    g = load_guard()
+    # 'а' (U+0430) for 'a', 'о' (U+043E) for 'o', 'р' (U+0440) for 'p'
+    assert "zzapo" in set(g.candidates("zzаро"))
+
+
+def test_base64_and_hex_blobs_are_decoded(tmp_path: Path) -> None:
+    import base64
+
+    g = load_guard()
+    payload = "the alias is zzqxterm here"
+    b64 = base64.b64encode(payload.encode()).decode()
+    hx = payload.encode().hex()
+    (tmp_path / "a.txt").write_text(f"blob1={b64}\nblob2={hx}\n")
+    dl = write_denylist(tmp_path / "dl.sha256", ["zzqxterm"])
+    assert g.main(["--denylist", str(dl), "--root", str(tmp_path), "--no-history", "--quiet"]) == 1
+    (tmp_path / "a.txt").write_text(f"blob1={b64}\n")
+    assert g.main(["--denylist", str(dl), "--root", str(tmp_path), "--no-history", "--quiet"]) == 1
+    (tmp_path / "a.txt").write_text(f"blob2={hx}\n")
+    assert g.main(["--denylist", str(dl), "--root", str(tmp_path), "--no-history", "--quiet"]) == 1
+
+
+def test_report_still_prints_hashes_only(
+    tmp_path: Path, capsys: pytest.CaptureFixture[str]
+) -> None:
+    g = load_guard()
+    (tmp_path / "a.txt").write_text("openai/zzqx-term-v2\n")
+    dl = write_denylist(tmp_path / "dl.sha256", ["zzqx-term"])
+    rc = g.main(["--denylist", str(dl), "--root", str(tmp_path), "--no-history"])
+    out = capsys.readouterr().out
+    assert rc == 1
+    assert "zzqx" not in out
+    assert h("zzqx-term")[:12] in out
