@@ -1,8 +1,8 @@
 {
   "provenance": {
     "schema_version": 2,
-    "run_at": "2026-09-04T16:40:11+00:00",
-    "harness_git_sha": "a7fabc89944ad0031cf0c5068df594c42304fe96",
+    "run_at": "2026-09-04T16:50:29+00:00",
+    "harness_git_sha": "9c6b73b606a97d7094c72f632f92c39afa55b96d",
     "package_version": "0.2.0",
     "config_sha256": "dfbe704b5509f0ed3d4fa283598337321968b0f13e3db30c387614792a01f49a",
     "thresholds_sha256": "a1909d35aa7e0c4c86f192dd3774fdca9a872cf686b7d48a41a19e04dc30c3d1",
@@ -3183,8 +3183,8 @@
     "E4": {
       "family": "E4",
       "baseline": {
-        "recorded": "2026-09-04T16:39:22+00:00",
-        "harness_git_sha": "5fc68a766f76c81b550a44c3096814b97ae7c58f",
+        "recorded": "2026-09-04T16:50:29+00:00",
+        "harness_git_sha": "9c6b73b606a97d7094c72f632f92c39afa55b96d",
         "dataset_sha256": "d167ae37e5e457f5e56c4c54169d9353e81d315cd7365d35bd71a55a4767f0d3",
         "accuracy": 0.44166666666666665,
         "rows": 120

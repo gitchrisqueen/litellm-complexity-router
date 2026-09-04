@@ -1,7 +1,24 @@
 {
   "schema_version": 2,
-  "recorded": "2026-09-04T16:39:22+00:00",
-  "harness_git_sha": "5fc68a766f76c81b550a44c3096814b97ae7c58f",
+  "provenance": {
+    "schema_version": 2,
+    "run_at": "2026-09-04T16:50:29+00:00",
+    "harness_git_sha": "9c6b73b606a97d7094c72f632f92c39afa55b96d",
+    "package_version": "0.2.0",
+    "config_sha256": "dfbe704b5509f0ed3d4fa283598337321968b0f13e3db30c387614792a01f49a",
+    "thresholds_sha256": "a1909d35aa7e0c4c86f192dd3774fdca9a872cf686b7d48a41a19e04dc30c3d1",
+    "datasets_sha256": {
+      "e1_routing.jsonl": "d167ae37e5e457f5e56c4c54169d9353e81d315cd7365d35bd71a55a4767f0d3",
+      "e5_malformed.jsonl": "390e80c41ebf607e02f5e463a2c1407828c4936dbdda7a5f2dac60035db94076"
+    },
+    "split_assignment_sha256": "51850bcb26e0f6a8f881498f3fa937a90ceb529b413811cb65a61ccb503044e8",
+    "python": "3.12.14",
+    "platform": "macOS-15.8-x86_64-i386-64bit",
+    "cost_usd": 0.0,
+    "note": "Pure-function run over committed datasets; no model was called."
+  },
+  "recorded": "2026-09-04T16:50:29+00:00",
+  "harness_git_sha": "9c6b73b606a97d7094c72f632f92c39afa55b96d",
   "dataset_sha256": "d167ae37e5e457f5e56c4c54169d9353e81d315cd7365d35bd71a55a4767f0d3",
   "split_assignment_sha256": "51850bcb26e0f6a8f881498f3fa937a90ceb529b413811cb65a61ccb503044e8",
   "accuracy": 0.44166666666666665,
