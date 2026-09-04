@@ -1,0 +1,797 @@
+{
+  "provenance": {
+    "schema_version": 1,
+    "run_at": "2026-09-04T14:33:58+00:00",
+    "harness_git_sha": "8670545bd8af947cb62fc8e922c46e00447eaf84",
+    "package_version": "0.1.0",
+    "config_sha256": "a6d50b3c60afa6c30a33a6437c0c3a7397999bbd4f0dc4433cc40bfe74336900",
+    "python": "3.12.14",
+    "platform": "macOS-15.8-x86_64-i386-64bit",
+    "cost_usd": 0.0,
+    "note": "Pure-function run over committed datasets; no model was called."
+  },
+  "families": {
+    "E1": {
+      "family": "E1",
+      "dataset": "e1_routing.jsonl",
+      "dataset_sha256": "690f644ad0feaecbfc6486b86dcebef91067cf875925eae6ede267e938fad335",
+      "rows": 36,
+      "splits": {
+        "train": 9,
+        "dev": 9,
+        "test": 18
+      },
+      "test": {
+        "n": 18,
+        "exact": 10,
+        "accuracy": 0.5555555555555556,
+        "wilson_95": [
+          0.3371606942825164,
+          0.7544076889861088
+        ],
+        "off_by_one": 8,
+        "off_by_one_rate": 0.4444444444444444,
+        "over_routed": 2,
+        "under_routed": 6,
+        "confusion": {
+          "SIMPLE": {
+            "SIMPLE": 4,
+            "MEDIUM": 0,
+            "COMPLEX": 0,
+            "REASONING": 0
+          },
+          "MEDIUM": {
+            "SIMPLE": 4,
+            "MEDIUM": 0,
+            "COMPLEX": 0,
+            "REASONING": 0
+          },
+          "COMPLEX": {
+            "SIMPLE": 0,
+            "MEDIUM": 2,
+            "COMPLEX": 2,
+            "REASONING": 2
+          },
+          "REASONING": {
+            "SIMPLE": 0,
+            "MEDIUM": 0,
+            "COMPLEX": 0,
+            "REASONING": 4
+          }
+        },
+        "directional": {
+          "simple_routed_above_complex": [],
+          "reasoning_routed_below_complex": []
+        },
+        "misses": [
+          {
+            "id": "e1-010",
+            "expected": "MEDIUM",
+            "predicted": "SIMPLE",
+            "score": 0.004,
+            "rationale": "short creative task, no analysis"
+          },
+          {
+            "id": "e1-012",
+            "expected": "MEDIUM",
+            "predicted": "SIMPLE",
+            "score": 0.0067,
+            "rationale": "short drafting task"
+          },
+          {
+            "id": "e1-014",
+            "expected": "MEDIUM",
+            "predicted": "SIMPLE",
+            "score": 0.0053,
+            "rationale": "factual explain, short"
+          },
+          {
+            "id": "e1-016",
+            "expected": "MEDIUM",
+            "predicted": "SIMPLE",
+            "score": 0.0067,
+            "rationale": "basic arithmetic with a formula"
+          },
+          {
+            "id": "e1-018",
+            "expected": "COMPLEX",
+            "predicted": "MEDIUM",
+            "score": 0.089,
+            "rationale": "basic code task"
+          },
+          {
+            "id": "e1-020",
+            "expected": "COMPLEX",
+            "predicted": "REASONING",
+            "score": 0.3217,
+            "rationale": "small code change"
+          },
+          {
+            "id": "e1-022",
+            "expected": "COMPLEX",
+            "predicted": "REASONING",
+            "score": 0.3377,
+            "rationale": "technical diagnosis"
+          },
+          {
+            "id": "e1-024",
+            "expected": "COMPLEX",
+            "predicted": "MEDIUM",
+            "score": 0.087,
+            "rationale": "scripting task"
+          }
+        ]
+      },
+      "test_anchored": null,
+      "test_synthetic": {
+        "n": 18,
+        "exact": 10,
+        "accuracy": 0.5555555555555556,
+        "wilson_95": [
+          0.3371606942825164,
+          0.7544076889861088
+        ],
+        "off_by_one": 8,
+        "off_by_one_rate": 0.4444444444444444,
+        "over_routed": 2,
+        "under_routed": 6,
+        "confusion": {
+          "SIMPLE": {
+            "SIMPLE": 4,
+            "MEDIUM": 0,
+            "COMPLEX": 0,
+            "REASONING": 0
+          },
+          "MEDIUM": {
+            "SIMPLE": 4,
+            "MEDIUM": 0,
+            "COMPLEX": 0,
+            "REASONING": 0
+          },
+          "COMPLEX": {
+            "SIMPLE": 0,
+            "MEDIUM": 2,
+            "COMPLEX": 2,
+            "REASONING": 2
+          },
+          "REASONING": {
+            "SIMPLE": 0,
+            "MEDIUM": 0,
+            "COMPLEX": 0,
+            "REASONING": 4
+          }
+        },
+        "directional": {
+          "simple_routed_above_complex": [],
+          "reasoning_routed_below_complex": []
+        },
+        "misses": [
+          {
+            "id": "e1-010",
+            "expected": "MEDIUM",
+            "predicted": "SIMPLE",
+            "score": 0.004,
+            "rationale": "short creative task, no analysis"
+          },
+          {
+            "id": "e1-012",
+            "expected": "MEDIUM",
+            "predicted": "SIMPLE",
+            "score": 0.0067,
+            "rationale": "short drafting task"
+          },
+          {
+            "id": "e1-014",
+            "expected": "MEDIUM",
+            "predicted": "SIMPLE",
+            "score": 0.0053,
+            "rationale": "factual explain, short"
+          },
+          {
+            "id": "e1-016",
+            "expected": "MEDIUM",
+            "predicted": "SIMPLE",
+            "score": 0.0067,
+            "rationale": "basic arithmetic with a formula"
+          },
+          {
+            "id": "e1-018",
+            "expected": "COMPLEX",
+            "predicted": "MEDIUM",
+            "score": 0.089,
+            "rationale": "basic code task"
+          },
+          {
+            "id": "e1-020",
+            "expected": "COMPLEX",
+            "predicted": "REASONING",
+            "score": 0.3217,
+            "rationale": "small code change"
+          },
+          {
+            "id": "e1-022",
+            "expected": "COMPLEX",
+            "predicted": "REASONING",
+            "score": 0.3377,
+            "rationale": "technical diagnosis"
+          },
+          {
+            "id": "e1-024",
+            "expected": "COMPLEX",
+            "predicted": "MEDIUM",
+            "score": 0.087,
+            "rationale": "scripting task"
+          }
+        ]
+      },
+      "dev": {
+        "n": 9,
+        "exact": 5,
+        "accuracy": 0.5555555555555556,
+        "wilson_95": [
+          0.2666473457440297,
+          0.811224570528086
+        ],
+        "off_by_one": 4,
+        "off_by_one_rate": 0.4444444444444444,
+        "over_routed": 1,
+        "under_routed": 3,
+        "confusion": {
+          "SIMPLE": {
+            "SIMPLE": 2,
+            "MEDIUM": 0,
+            "COMPLEX": 0,
+            "REASONING": 0
+          },
+          "MEDIUM": {
+            "SIMPLE": 2,
+            "MEDIUM": 0,
+            "COMPLEX": 0,
+            "REASONING": 0
+          },
+          "COMPLEX": {
+            "SIMPLE": 0,
+            "MEDIUM": 0,
+            "COMPLEX": 2,
+            "REASONING": 1
+          },
+          "REASONING": {
+            "SIMPLE": 0,
+            "MEDIUM": 0,
+            "COMPLEX": 1,
+            "REASONING": 1
+          }
+        },
+        "directional": {
+          "simple_routed_above_complex": [],
+          "reasoning_routed_below_complex": []
+        },
+        "misses": [
+          {
+            "id": "e1-011",
+            "expected": "MEDIUM",
+            "predicted": "SIMPLE",
+            "score": 0.0173,
+            "rationale": "short summarisation"
+          },
+          {
+            "id": "e1-015",
+            "expected": "MEDIUM",
+            "predicted": "SIMPLE",
+            "score": 0.0067,
+            "rationale": "light ideation"
+          },
+          {
+            "id": "e1-023",
+            "expected": "COMPLEX",
+            "predicted": "REASONING",
+            "score": 0.267,
+            "rationale": "technical comparison with a recommendation"
+          },
+          {
+            "id": "e1-027",
+            "expected": "REASONING",
+            "predicted": "COMPLEX",
+            "score": 0.098,
+            "rationale": "proof plus meta-analysis"
+          }
+        ]
+      },
+      "train": {
+        "n": 9,
+        "exact": 7,
+        "accuracy": 0.7777777777777778,
+        "wilson_95": [
+          0.4525833436728054,
+          0.9367762376877727
+        ],
+        "off_by_one": 2,
+        "off_by_one_rate": 0.2222222222222222,
+        "over_routed": 1,
+        "under_routed": 1,
+        "confusion": {
+          "SIMPLE": {
+            "SIMPLE": 3,
+            "MEDIUM": 0,
+            "COMPLEX": 0,
+            "REASONING": 0
+          },
+          "MEDIUM": {
+            "SIMPLE": 1,
+            "MEDIUM": 0,
+            "COMPLEX": 1,
+            "REASONING": 0
+          },
+          "COMPLEX": {
+            "SIMPLE": 0,
+            "MEDIUM": 0,
+            "COMPLEX": 3,
+            "REASONING": 0
+          },
+          "REASONING": {
+            "SIMPLE": 0,
+            "MEDIUM": 0,
+            "COMPLEX": 0,
+            "REASONING": 1
+          }
+        },
+        "directional": {
+          "simple_routed_above_complex": [],
+          "reasoning_routed_below_complex": []
+        },
+        "misses": [
+          {
+            "id": "e1-013",
+            "expected": "MEDIUM",
+            "predicted": "SIMPLE",
+            "score": 0.0093,
+            "rationale": "light editing"
+          },
+          {
+            "id": "e1-017",
+            "expected": "MEDIUM",
+            "predicted": "COMPLEX",
+            "score": 0.092,
+            "rationale": "light editing"
+          }
+        ]
+      },
+      "checks": {
+        "directional_rules": {
+          "passed": true,
+          "enforced": true
+        },
+        "exact_min": {
+          "passed": false,
+          "enforced": false,
+          "threshold": 0.8
+        },
+        "min_test_rows": {
+          "passed": false,
+          "enforced": false,
+          "threshold": 50
+        }
+      },
+      "passed": true,
+      "per_row": [
+        {
+          "id": "e1-001",
+          "split": "train",
+          "expected": "SIMPLE",
+          "predicted": "SIMPLE",
+          "scored_tier": "SIMPLE",
+          "score": 0.0007
+        },
+        {
+          "id": "e1-002",
+          "split": "test",
+          "expected": "SIMPLE",
+          "predicted": "SIMPLE",
+          "scored_tier": "SIMPLE",
+          "score": 0.002
+        },
+        {
+          "id": "e1-003",
+          "split": "dev",
+          "expected": "SIMPLE",
+          "predicted": "SIMPLE",
+          "scored_tier": "SIMPLE",
+          "score": 0.0
+        },
+        {
+          "id": "e1-004",
+          "split": "test",
+          "expected": "SIMPLE",
+          "predicted": "SIMPLE",
+          "scored_tier": "SIMPLE",
+          "score": 0.0
+        },
+        {
+          "id": "e1-005",
+          "split": "train",
+          "expected": "SIMPLE",
+          "predicted": "SIMPLE",
+          "scored_tier": "SIMPLE",
+          "score": 0.0
+        },
+        {
+          "id": "e1-006",
+          "split": "test",
+          "expected": "SIMPLE",
+          "predicted": "SIMPLE",
+          "scored_tier": "SIMPLE",
+          "score": 0.0
+        },
+        {
+          "id": "e1-007",
+          "split": "dev",
+          "expected": "SIMPLE",
+          "predicted": "SIMPLE",
+          "scored_tier": "SIMPLE",
+          "score": 0.0
+        },
+        {
+          "id": "e1-008",
+          "split": "test",
+          "expected": "SIMPLE",
+          "predicted": "SIMPLE",
+          "scored_tier": "SIMPLE",
+          "score": 0.0
+        },
+        {
+          "id": "e1-009",
+          "split": "train",
+          "expected": "SIMPLE",
+          "predicted": "SIMPLE",
+          "scored_tier": "SIMPLE",
+          "score": 0.0
+        },
+        {
+          "id": "e1-010",
+          "split": "test",
+          "expected": "MEDIUM",
+          "predicted": "SIMPLE",
+          "scored_tier": "SIMPLE",
+          "score": 0.004
+        },
+        {
+          "id": "e1-011",
+          "split": "dev",
+          "expected": "MEDIUM",
+          "predicted": "SIMPLE",
+          "scored_tier": "SIMPLE",
+          "score": 0.0173
+        },
+        {
+          "id": "e1-012",
+          "split": "test",
+          "expected": "MEDIUM",
+          "predicted": "SIMPLE",
+          "scored_tier": "SIMPLE",
+          "score": 0.0067
+        },
+        {
+          "id": "e1-013",
+          "split": "train",
+          "expected": "MEDIUM",
+          "predicted": "SIMPLE",
+          "scored_tier": "SIMPLE",
+          "score": 0.0093
+        },
+        {
+          "id": "e1-014",
+          "split": "test",
+          "expected": "MEDIUM",
+          "predicted": "SIMPLE",
+          "scored_tier": "SIMPLE",
+          "score": 0.0053
+        },
+        {
+          "id": "e1-015",
+          "split": "dev",
+          "expected": "MEDIUM",
+          "predicted": "SIMPLE",
+          "scored_tier": "SIMPLE",
+          "score": 0.0067
+        },
+        {
+          "id": "e1-016",
+          "split": "test",
+          "expected": "MEDIUM",
+          "predicted": "SIMPLE",
+          "scored_tier": "SIMPLE",
+          "score": 0.0067
+        },
+        {
+          "id": "e1-017",
+          "split": "train",
+          "expected": "MEDIUM",
+          "predicted": "COMPLEX",
+          "scored_tier": "COMPLEX",
+          "score": 0.092
+        },
+        {
+          "id": "e1-018",
+          "split": "test",
+          "expected": "COMPLEX",
+          "predicted": "MEDIUM",
+          "scored_tier": "MEDIUM",
+          "score": 0.089
+        },
+        {
+          "id": "e1-019",
+          "split": "dev",
+          "expected": "COMPLEX",
+          "predicted": "COMPLEX",
+          "scored_tier": "COMPLEX",
+          "score": 0.0953
+        },
+        {
+          "id": "e1-020",
+          "split": "test",
+          "expected": "COMPLEX",
+          "predicted": "REASONING",
+          "scored_tier": "REASONING",
+          "score": 0.3217
+        },
+        {
+          "id": "e1-021",
+          "split": "train",
+          "expected": "COMPLEX",
+          "predicted": "COMPLEX",
+          "scored_tier": "COMPLEX",
+          "score": 0.1127
+        },
+        {
+          "id": "e1-022",
+          "split": "test",
+          "expected": "COMPLEX",
+          "predicted": "REASONING",
+          "scored_tier": "REASONING",
+          "score": 0.3377
+        },
+        {
+          "id": "e1-023",
+          "split": "dev",
+          "expected": "COMPLEX",
+          "predicted": "REASONING",
+          "scored_tier": "REASONING",
+          "score": 0.267
+        },
+        {
+          "id": "e1-024",
+          "split": "test",
+          "expected": "COMPLEX",
+          "predicted": "MEDIUM",
+          "scored_tier": "MEDIUM",
+          "score": 0.087
+        },
+        {
+          "id": "e1-025",
+          "split": "train",
+          "expected": "COMPLEX",
+          "predicted": "COMPLEX",
+          "scored_tier": "COMPLEX",
+          "score": 0.1893
+        },
+        {
+          "id": "e1-026",
+          "split": "test",
+          "expected": "COMPLEX",
+          "predicted": "COMPLEX",
+          "scored_tier": "COMPLEX",
+          "score": 0.182
+        },
+        {
+          "id": "e1-027",
+          "split": "dev",
+          "expected": "REASONING",
+          "predicted": "COMPLEX",
+          "scored_tier": "COMPLEX",
+          "score": 0.098
+        },
+        {
+          "id": "e1-028",
+          "split": "test",
+          "expected": "REASONING",
+          "predicted": "REASONING",
+          "scored_tier": "REASONING",
+          "score": 0.514
+        },
+        {
+          "id": "e1-029",
+          "split": "train",
+          "expected": "REASONING",
+          "predicted": "REASONING",
+          "scored_tier": "REASONING",
+          "score": 0.346
+        },
+        {
+          "id": "e1-030",
+          "split": "test",
+          "expected": "REASONING",
+          "predicted": "REASONING",
+          "scored_tier": "REASONING",
+          "score": 0.4347
+        },
+        {
+          "id": "e1-031",
+          "split": "dev",
+          "expected": "REASONING",
+          "predicted": "REASONING",
+          "scored_tier": "REASONING",
+          "score": 0.346
+        },
+        {
+          "id": "e1-032",
+          "split": "test",
+          "expected": "REASONING",
+          "predicted": "REASONING",
+          "scored_tier": "REASONING",
+          "score": 0.2647
+        },
+        {
+          "id": "e1-033",
+          "split": "train",
+          "expected": "COMPLEX",
+          "predicted": "COMPLEX",
+          "scored_tier": "SIMPLE",
+          "score": 0.0007
+        },
+        {
+          "id": "e1-034",
+          "split": "test",
+          "expected": "COMPLEX",
+          "predicted": "COMPLEX",
+          "scored_tier": "MEDIUM",
+          "score": 0.0837
+        },
+        {
+          "id": "e1-035",
+          "split": "dev",
+          "expected": "COMPLEX",
+          "predicted": "COMPLEX",
+          "scored_tier": "SIMPLE",
+          "score": 0.0
+        },
+        {
+          "id": "e1-036",
+          "split": "test",
+          "expected": "REASONING",
+          "predicted": "REASONING",
+          "scored_tier": "REASONING",
+          "score": 0.2787
+        }
+      ]
+    },
+    "E4": {
+      "family": "E4",
+      "baseline": {
+        "recorded": "2026-09-04T14:33:58+00:00",
+        "harness_git_sha": "8670545bd8af947cb62fc8e922c46e00447eaf84",
+        "dataset_sha256": "690f644ad0feaecbfc6486b86dcebef91067cf875925eae6ede267e938fad335",
+        "accuracy": 0.6111111111111112,
+        "rows": 36
+      },
+      "dataset_changed_since_baseline": false,
+      "corpus_rows": 36,
+      "current_accuracy": 0.6111111111111112,
+      "drop_points": 0.0,
+      "max_drop_points": 2.0,
+      "changed_rows": [],
+      "rows_added": [],
+      "rows_removed": [],
+      "passed": true
+    },
+    "E5": {
+      "family": "E5",
+      "dataset": "e5_malformed.jsonl",
+      "dataset_sha256": "af1b4a285cda444b9fb9cc2b7a57166bcc58997a486f6ee3a52b4f14f6ed1d6b",
+      "rows": 9,
+      "failed": [],
+      "passed": true,
+      "per_row": [
+        {
+          "id": "e5-001",
+          "class": "no-user-message",
+          "expected": "REASONING",
+          "predicted": "REASONING",
+          "score": 0.3,
+          "empty_branch": true,
+          "error": null,
+          "passed": true,
+          "note": "No user turn at all: the empty branch fires and the mid-scale default lands in REASONING."
+        },
+        {
+          "id": "e5-002",
+          "class": "empty-user-content",
+          "expected": "REASONING",
+          "predicted": "REASONING",
+          "score": 0.3,
+          "empty_branch": true,
+          "error": null,
+          "passed": true,
+          "note": "Empty string content."
+        },
+        {
+          "id": "e5-003",
+          "class": "whitespace-only",
+          "expected": "REASONING",
+          "predicted": "REASONING",
+          "score": 0.3,
+          "empty_branch": true,
+          "error": null,
+          "passed": true,
+          "note": "Whitespace-only content."
+        },
+        {
+          "id": "e5-004",
+          "class": "image-only-turn",
+          "expected": "REASONING",
+          "predicted": "REASONING",
+          "score": 0.3,
+          "empty_branch": true,
+          "error": null,
+          "passed": true,
+          "note": "A content list with no text block extracts as empty."
+        },
+        {
+          "id": "e5-005",
+          "class": "injection-only-message",
+          "expected": "REASONING",
+          "predicted": "REASONING",
+          "score": 0.42,
+          "empty_branch": false,
+          "error": null,
+          "passed": true,
+          "note": "Expected NON-trigger: stripping empties the text, so the unstripped content is scored instead of the empty branch."
+        },
+        {
+          "id": "e5-006",
+          "class": "single-enormous-token",
+          "expected": "SIMPLE",
+          "predicted": "SIMPLE",
+          "score": 0.0007,
+          "empty_branch": false,
+          "error": null,
+          "passed": true,
+          "note": "One 20,000-character word: one word, no patterns, scores near zero."
+        },
+        {
+          "id": "e5-007",
+          "class": "non-english",
+          "expected": "MEDIUM",
+          "predicted": "MEDIUM",
+          "score": 0.088,
+          "empty_branch": false,
+          "error": null,
+          "passed": true,
+          "note": "Spanish prompt: only language-agnostic patterns fire ('python' matches; 'recursi\u00f3n' does not match 'recursion'), so the score lands just under the COMPLEX cut. Pins current behaviour; not a claim it is right."
+        },
+        {
+          "id": "e5-008",
+          "class": "prompt-injection-steer",
+          "expected": "SIMPLE",
+          "predicted": "SIMPLE",
+          "score": 0.0107,
+          "empty_branch": false,
+          "error": null,
+          "passed": true,
+          "note": "A prompt that tries to name its own tier is scored on its words like any other; its words score SIMPLE. The named tier and score in the text have no effect on routing."
+        },
+        {
+          "id": "e5-009",
+          "class": "tools-with-empty-text",
+          "expected": "REASONING",
+          "predicted": "REASONING",
+          "score": 0.3,
+          "empty_branch": true,
+          "error": null,
+          "passed": true,
+          "note": "Empty text plus tools: the empty default already exceeds the floor, so the floor is a no-op."
+        }
+      ]
+    }
+  },
+  "passed": true
+}
