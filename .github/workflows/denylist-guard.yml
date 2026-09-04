@@ -1,0 +1,29 @@
+name: denylist-guard
+
+# Hashes every candidate token in the working tree and the full history
+# (`git log --all -p`, messages, authors, paths, refs) and compares against
+# scripts/denylist.sha256. The log shows a per-hash zero/non-zero table and
+# never the matched text, so this run's output is safe to cite publicly.
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  guard:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Fetch every ref
+        run: git fetch --all --tags --prune --force
+      - name: Denylist guard (tree + full history)
+        run: python scripts/denylist_guard.py

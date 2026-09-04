@@ -1,0 +1,40 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: test (py${{ matrix.python }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python: ["3.11", "3.12"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - name: Install
+        run: python -m pip install --upgrade pip && python -m pip install -e ".[dev]"
+      - name: Lint
+        run: ruff check . && ruff format --check .
+      - name: Type-check
+        run: mypy
+      - name: Unit tests
+        run: pytest --cov=complexity_router --cov-report=term-missing --cov-report=xml
+      - name: Coverage floor on scoring.py and tiers.py
+        # The floor is set on the two modules the repository exists to publish,
+        # not repo-wide, so easy-to-test modules cannot satisfy it on their own.
+        run: |
+          coverage report --include='src/complexity_router/scoring.py,src/complexity_router/tiers.py' --fail-under=95
+      - name: Free evals (E1 routing, E4 frozen regression, E5 malformed input)
+        # Pure-function runs over committed datasets. No model is called and no
+        # money can be spent from this workflow.
+        run: python -m evals.harness --family e1 e4 e5
