@@ -30,7 +30,7 @@ splits they were committed with; the 24 new synthetic rows were assigned at
 write time; the 60 anchored rows are assigned by the sampler's fixed pattern.
 No row has been moved.
 
-**Single rater, no agreement statistic.** Phase 1 runs one labeling pass. The
+**Single rater, no agreement statistic.** This release runs one labeling pass. The
 headline therefore rests on a single-rater label set with no kappa; blind
 double labeling is deferred (see `README.md`, "the four controls"). The
 anchored rows are the part of the set that does not depend on that rater's
