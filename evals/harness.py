@@ -476,11 +476,12 @@ def run_e4(config: RouterConfig, thresholds: dict[str, Any], e1: dict[str, Any])
     }
 
 
-def write_baseline(e1: dict[str, Any]) -> Path:
+def write_baseline(e1: dict[str, Any], config: RouterConfig) -> Path:
     rows = e1["per_row"]
     acc = sum(r["expected"] == r["predicted"] for r in rows) / len(rows)
     payload = {
         "schema_version": SCHEMA_VERSION,
+        "provenance": provenance(config),
         "recorded": datetime.now(UTC).isoformat(timespec="seconds"),
         "harness_git_sha": git_sha(),
         "dataset_sha256": e1["dataset_sha256"],
@@ -598,7 +599,7 @@ def main(argv: list[str] | None = None) -> int:
         if "e1" in families:
             report["families"]["E1"] = e1
     if args.write_baseline and e1 is not None:
-        p = write_baseline(e1)
+        p = write_baseline(e1, config)
         print(f"baseline written: {p.relative_to(ROOT)}")
     if "e4" in families and e1 is not None:
         report["families"]["E4"] = run_e4(config, thresholds, e1)
