@@ -60,7 +60,7 @@ Realised score distribution, all 120 rows: minimum 0.000, **median 0.013**,
 (0.95, the sum of the positive weights) and this artifact measures the
 realised spread: the bulk of the labeled set sits in the bottom 3% of the
 achievable range, and the three lower tiers share a band of width 0.25. That
-is the dynamic-range question the plan asked the artifact to face, and the
+is the dynamic-range question this artifact exists to face, and the
 answer is that on this dataset the score is compressed near zero, largely
 because prompts without code, reasoning keywords or domain terms — including
 competition-math problems — score only their length.

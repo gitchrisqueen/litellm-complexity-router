@@ -128,7 +128,7 @@ def test_guard_runs_as_a_script_on_this_repo() -> None:
     assert "CLEAN" in proc.stdout
 
 
-# ── hardening (M-R2): spans, canonical separators, no substring cap, NFKC, blobs ──
+# ── hardening: spans, canonical separators, no substring cap, NFKC, blobs ─────
 
 
 def test_span_inside_path_and_hyphenated_identifier_is_a_candidate() -> None:

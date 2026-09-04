@@ -87,7 +87,7 @@ def test_cli_exit_code_reflects_pass(capsys: pytest.CaptureFixture[str]) -> None
     assert "E1 PASS" in out and "E5 PASS" in out
 
 
-# ── M-R2: composition gates, anchored subset, known failures, split digest ────
+# ── composition gates, anchored subset, known failures, split digest ─────────
 
 
 def test_dataset_meets_the_committed_sizing() -> None:
