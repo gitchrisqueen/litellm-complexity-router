@@ -9,7 +9,11 @@ deterministic, which is the only reason E4's point-drop gate is defensible.
   labeled ``expected_tier``; the harness reports exact-tier accuracy on the
   frozen ``test`` split with a Wilson 95% interval, an off-by-one rate, a
   confusion matrix, and two absolute directional rules (no SIMPLE-labeled row
-  routed above COMPLEX, no REASONING-labeled row routed below COMPLEX).
+  routed above COMPLEX, no REASONING-labeled row routed below COMPLEX). The
+  outside-anchored and synthetic subsets of the test split are reported
+  separately, as is accuracy per source. Dataset composition (row count,
+  split sizes, anchored share per split) is checked against
+  ``thresholds.yaml`` and enforced.
 - **E4 frozen regression** - the *regression corpus* is every E1 row (all
   splits) compared against ``results/baseline.json``; the run fails when
   accuracy drops by more than the configured points, and every row whose
@@ -54,9 +58,10 @@ ROOT = Path(__file__).resolve().parents[1]
 DATASETS = ROOT / "evals" / "datasets"
 RESULTS = ROOT / "results"
 THRESHOLDS = ROOT / "evals" / "thresholds.yaml"
-SCHEMA_VERSION = 1
+SCHEMA_VERSION = 2
 ALLOWED_SOURCES = ("synthetic",)  # plus "public:<name>" - checked by prefix
 ALLOWED_SPLITS = ("train", "dev", "test")
+REQUIRED_E1_FIELDS = ("id", "prompt", "has_tools", "expected_tier", "source", "split", "rater")
 
 
 # ── helpers ───────────────────────────────────────────────────────────────────
@@ -113,6 +118,70 @@ def load_thresholds() -> dict[str, Any]:
     return yaml.safe_load(THRESHOLDS.read_text(encoding="utf-8")) or {}
 
 
+def split_assignment_sha256(rows: list[dict[str, Any]]) -> str:
+    """Digest of the committed split assignment: sorted ``id:split`` lines."""
+    lines = sorted(f"{r['id']}:{r.get('split', '')}" for r in rows)
+    return hashlib.sha256("\n".join(lines).encode("utf-8")).hexdigest()
+
+
+def validate_e1_row(row: dict[str, Any], path: Path) -> None:
+    missing = [k for k in REQUIRED_E1_FIELDS if k not in row]
+    if missing:
+        raise SystemExit(f"{path.name}: row {row.get('id')!r} is missing {missing}")
+    validate_source(row, path)
+    if row["split"] not in ALLOWED_SPLITS:
+        raise SystemExit(f"{path.name}: row {row['id']!r} split must be one of {ALLOWED_SPLITS}")
+    if row["expected_tier"] not in TIER_ORDER:
+        raise SystemExit(f"{path.name}: row {row['id']!r} has an unknown expected_tier")
+    if not isinstance(row["has_tools"], bool):
+        raise SystemExit(f"{path.name}: row {row['id']!r} has_tools must be a bool")
+    if row.get("anchored") and not str(row["source"]).startswith("public:"):
+        raise SystemExit(f"{path.name}: row {row['id']!r} is anchored but not from a public source")
+    if row.get("anchored") and "anchor" not in row:
+        raise SystemExit(f"{path.name}: row {row['id']!r} is anchored but carries no anchor block")
+
+
+def composition_checks(rows: list[dict[str, Any]], t: dict[str, Any]) -> dict[str, Any]:
+    """Dataset-composition gates from ``thresholds.yaml`` (``e1.dataset``)."""
+    d = t.get("dataset", {})
+    enforced = bool(d.get("enforce", False))
+    by_split = {s: [r for r in rows if r["split"] == s] for s in ALLOWED_SPLITS}
+    min_split = d.get("min_split_rows", {})
+    frac = float(d.get("min_anchored_fraction_per_split", 0.0))
+    out: dict[str, Any] = {
+        "min_rows": {
+            "passed": len(rows) >= int(d.get("min_rows", 0)),
+            "enforced": enforced,
+            "threshold": int(d.get("min_rows", 0)),
+            "actual": len(rows),
+        }
+    }
+    for split_name, split_rows in by_split.items():
+        anchored_n = sum(bool(r.get("anchored")) for r in split_rows)
+        share = (anchored_n / len(split_rows)) if split_rows else 0.0
+        out[f"min_{split_name}_rows"] = {
+            "passed": len(split_rows) >= int(min_split.get(split_name, 0)),
+            "enforced": enforced,
+            "threshold": int(min_split.get(split_name, 0)),
+            "actual": len(split_rows),
+        }
+        out[f"anchored_share_{split_name}"] = {
+            "passed": share >= frac,
+            "enforced": enforced,
+            "threshold": frac,
+            "actual": share,
+            "anchored_rows": anchored_n,
+        }
+    min_anchored_test = int(d.get("min_anchored_test_rows", 0))
+    out["min_anchored_test_rows"] = {
+        "passed": out["anchored_share_test"]["anchored_rows"] >= min_anchored_test,
+        "enforced": enforced,
+        "threshold": min_anchored_test,
+        "actual": out["anchored_share_test"]["anchored_rows"],
+    }
+    return out
+
+
 @dataclass
 class RowResult:
     id: str
@@ -123,6 +192,7 @@ class RowResult:
     split: str
     has_tools: bool
     anchored: bool
+    source: str
     rationale: str
 
     @property
@@ -157,6 +227,7 @@ def score_rows(rows: list[dict[str, Any]], config: RouterConfig) -> list[RowResu
                 split=row.get("split", "test"),
                 has_tools=bool(row.get("has_tools")),
                 anchored=bool(row.get("anchored", False)),
+                source=str(row.get("source", "")),
                 rationale=str(row.get("rationale", "")),
             )
         )
@@ -197,6 +268,8 @@ def summarise(results: list[RowResult]) -> dict[str, Any]:
                 "expected": r.expected,
                 "predicted": r.predicted,
                 "score": round(r.score, 4),
+                "source": r.source,
+                "anchored": r.anchored,
                 "rationale": r.rationale,
             }
             for r in results
@@ -205,35 +278,75 @@ def summarise(results: list[RowResult]) -> dict[str, Any]:
     }
 
 
+def summarise_by_source(results: list[RowResult]) -> dict[str, Any]:
+    out: dict[str, Any] = {}
+    for src in sorted({r.source for r in results}):
+        sub = [r for r in results if r.source == src]
+        n = len(sub)
+        exact = sum(r.exact for r in sub)
+        lo, hi = wilson_interval(exact, n)
+        out[src] = {
+            "n": n,
+            "exact": exact,
+            "accuracy": exact / n,
+            "wilson_95": [lo, hi],
+            "off_by_one_rate": sum(abs(r.distance) == 1 for r in sub) / n,
+        }
+    return out
+
+
 def run_e1(config: RouterConfig, thresholds: dict[str, Any]) -> dict[str, Any]:
     path = DATASETS / "e1_routing.jsonl"
     rows = load_jsonl(path)
+    seen: set[str] = set()
     for row in rows:
-        validate_source(row, path)
-        if row.get("split") not in ALLOWED_SPLITS:
-            raise SystemExit(
-                f"{path.name}: row {row.get('id')!r} split must be one of {ALLOWED_SPLITS}"
-            )
-        if row.get("expected_tier") not in TIER_ORDER:
-            raise SystemExit(f"{path.name}: row {row.get('id')!r} has an unknown expected_tier")
+        validate_e1_row(row, path)
+        if row["id"] in seen:
+            raise SystemExit(f"{path.name}: duplicate id {row['id']!r}")
+        seen.add(row["id"])
+    t = thresholds.get("e1", {})
     results = score_rows(rows, config)
     by_split = {s: [r for r in results if r.split == s] for s in ALLOWED_SPLITS}
     test = by_split["test"]
-    t = thresholds.get("e1", {})
     test_summary = summarise(test)
     anchored = [r for r in test if r.anchored]
     synthetic = [r for r in test if not r.anchored]
-    directional_ok = (
-        not test_summary["directional"]["simple_routed_above_complex"]
-        and not (test_summary["directional"]["reasoning_routed_below_complex"])
+    known = {
+        str(k.get("id")): str(k.get("rule"))
+        for k in (t.get("directional", {}).get("known_failures") or [])
+    }
+    violations = {
+        rid: "simple_routed_above_complex"
+        for rid in test_summary["directional"]["simple_routed_above_complex"]
+    }
+    violations.update(
+        {
+            rid: "reasoning_routed_below_complex"
+            for rid in test_summary["directional"]["reasoning_routed_below_complex"]
+        }
     )
+    new_violations = sorted(r for r, rule in violations.items() if known.get(r) != rule)
+    known_still_failing = sorted(r for r, rule in violations.items() if known.get(r) == rule)
+    resolved_known = sorted(r for r in known if r not in violations)
+    directional_ok = not new_violations
     exact_ok = test_summary["accuracy"] >= float(t.get("exact_min", 0.80))
-    checks = {
-        "directional_rules": {"passed": directional_ok, "enforced": True},
+    checks: dict[str, Any] = {
+        "directional_rules": {
+            "passed": directional_ok,
+            "enforced": True,
+            "new_violations": new_violations,
+            "known_violations": known_still_failing,
+            "resolved_known_failures": resolved_known,
+            "note": (
+                "hard gate on any violation not listed in thresholds.yaml "
+                "e1.directional.known_failures; the known list is published, not hidden"
+            ),
+        },
         "exact_min": {
             "passed": exact_ok,
             "enforced": bool(t.get("enforce_exact", False)),
             "threshold": float(t.get("exact_min", 0.80)),
+            "note": "directional: reported with its interval, not a hard gate",
         },
         "min_test_rows": {
             "passed": len(test) >= int(t.get("min_test_rows", 0)),
@@ -241,24 +354,49 @@ def run_e1(config: RouterConfig, thresholds: dict[str, Any]) -> dict[str, Any]:
             "threshold": int(t.get("min_test_rows", 0)),
         },
     }
+    checks.update(composition_checks(rows, t))
     passed = all(c["passed"] for c in checks.values() if c["enforced"])
+    anchored_summary = summarise(anchored) if anchored else None
+    synthetic_summary = summarise(synthetic) if synthetic else None
+    gap = None
+    if anchored_summary and synthetic_summary:
+        gap = anchored_summary["accuracy"] - synthetic_summary["accuracy"]
     return {
         "family": "E1",
         "dataset": path.name,
         "dataset_sha256": sha256_file(path),
+        "split_assignment_sha256": split_assignment_sha256(rows),
         "rows": len(rows),
         "splits": {s: len(v) for s, v in by_split.items()},
+        "anchored_per_split": {s: sum(r.anchored for r in v) for s, v in by_split.items()},
+        "sources": {
+            src: sum(r.source == src for r in results)
+            for src in sorted({r.source for r in results})
+        },
         "test": test_summary,
-        "test_anchored": summarise(anchored) if anchored else None,
-        "test_synthetic": summarise(synthetic) if synthetic else None,
+        "test_anchored": anchored_summary,
+        "test_synthetic": synthetic_summary,
+        "test_anchored_minus_synthetic": gap,
+        "test_by_source": summarise_by_source(test),
         "dev": summarise(by_split["dev"]) if by_split["dev"] else None,
         "train": summarise(by_split["train"]) if by_split["train"] else None,
+        "corpus": summarise(results),
+        "corpus_directional_violations": {
+            "simple_routed_above_complex": [
+                r.id for r in results if r.expected == "SIMPLE" and tier_index(r.predicted) > 2
+            ],
+            "reasoning_routed_below_complex": [
+                r.id for r in results if r.expected == "REASONING" and tier_index(r.predicted) < 2
+            ],
+        },
         "checks": checks,
         "passed": passed,
         "per_row": [
             {
                 "id": r.id,
                 "split": r.split,
+                "source": r.source,
+                "anchored": r.anchored,
                 "expected": r.expected,
                 "predicted": r.predicted,
                 "scored_tier": r.scored_tier,
@@ -299,9 +437,21 @@ def run_e4(config: RouterConfig, thresholds: dict[str, Any], e1: dict[str, Any])
     ]
     added = sorted(set(current_rows) - set(base_rows))
     removed = sorted(set(base_rows) - set(current_rows))
-    drop_points = (baseline["accuracy"] - current_acc) * 100
+    # The gate is computed over the rows both sides share, so adding rows in a
+    # PR cannot mask (or fake) a regression on the rows the baseline recorded.
+    common = sorted(set(current_rows) & set(base_rows))
+    if common:
+        base_common_acc = sum(
+            base_rows[i]["expected"] == base_rows[i]["predicted"] for i in common
+        ) / len(common)
+        cur_common_acc = sum(
+            current_rows[i]["expected"] == current_rows[i]["predicted"] for i in common
+        ) / len(common)
+    else:
+        base_common_acc = cur_common_acc = 0.0
+    drop_points = (base_common_acc - cur_common_acc) * 100
     dataset_changed = baseline.get("dataset_sha256") != e1["dataset_sha256"]
-    passed = drop_points <= max_drop
+    passed = bool(common) and drop_points <= max_drop
     return {
         "family": "E4",
         "baseline": {
@@ -314,6 +464,9 @@ def run_e4(config: RouterConfig, thresholds: dict[str, Any], e1: dict[str, Any])
         "dataset_changed_since_baseline": dataset_changed,
         "corpus_rows": n,
         "current_accuracy": current_acc,
+        "common_rows": len(common),
+        "baseline_accuracy_on_common_rows": base_common_acc,
+        "current_accuracy_on_common_rows": cur_common_acc,
         "drop_points": drop_points,
         "max_drop_points": max_drop,
         "changed_rows": changed,
@@ -331,6 +484,7 @@ def write_baseline(e1: dict[str, Any]) -> Path:
         "recorded": datetime.now(UTC).isoformat(timespec="seconds"),
         "harness_git_sha": git_sha(),
         "dataset_sha256": e1["dataset_sha256"],
+        "split_assignment_sha256": e1["split_assignment_sha256"],
         "accuracy": acc,
         "per_row": [
             {"id": r["id"], "expected": r["expected"], "predicted": r["predicted"]} for r in rows
@@ -396,12 +550,19 @@ def provenance(config: RouterConfig) -> dict[str, Any]:
     cfg_digest = hashlib.sha256(
         json.dumps(config.to_dict(), sort_keys=True).encode("utf-8")
     ).hexdigest()
+    e1_path = DATASETS / "e1_routing.jsonl"
     return {
         "schema_version": SCHEMA_VERSION,
         "run_at": datetime.now(UTC).isoformat(timespec="seconds"),
         "harness_git_sha": git_sha(),
         "package_version": __version__,
         "config_sha256": cfg_digest,
+        "thresholds_sha256": sha256_file(THRESHOLDS),
+        "datasets_sha256": {
+            "e1_routing.jsonl": sha256_file(e1_path),
+            "e5_malformed.jsonl": sha256_file(DATASETS / "e5_malformed.jsonl"),
+        },
+        "split_assignment_sha256": split_assignment_sha256(load_jsonl(e1_path)),
         "python": platform.python_version(),
         "platform": platform.platform(),
         "cost_usd": 0.0,
@@ -459,10 +620,24 @@ def main(argv: list[str] | None = None) -> int:
                     for k, v in fam["checks"].items()
                 )
             )
+            for label in ("test_anchored", "test_synthetic"):
+                sub = fam.get(label)
+                if sub:
+                    slo, shi = sub["wilson_95"]
+                    print(
+                        f"   {label}: n={sub['n']} exact={sub['accuracy']:.3f} "
+                        f"[{slo:.3f}, {shi:.3f}] off_by_one={sub['off_by_one_rate']:.3f}"
+                    )
+            dr = fam["checks"]["directional_rules"]
+            if dr["known_violations"] or dr["new_violations"]:
+                print(
+                    f"   directional: known_violations={dr['known_violations']} "
+                    f"new_violations={dr['new_violations']}"
+                )
             for m in t["misses"]:
                 print(
                     f"   miss {m['id']}: expected {m['expected']} got {m['predicted']} "
-                    f"(score {m['score']}) - {m['rationale']}"
+                    f"(score {m['score']}) [{m['source']}] - {m['rationale']}"
                 )
         elif name == "E4":
             if fam["baseline"] is None:
