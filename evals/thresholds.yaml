@@ -1,0 +1,25 @@
+# Thresholds for the free eval families. `enforced` flags decide what fails CI;
+# everything else is computed and reported.
+
+e1:
+  # Exact-tier accuracy on the frozen `test` split. Reported with its Wilson
+  # 95% interval and described as directional. Not enforced while the dataset
+  # is a seed (see evals/datasets/SOURCES.md); enforcement is switched on when
+  # the 120-row / 50-row-test set lands.
+  exact_min: 0.80
+  enforce_exact: false
+  # Two absolute directional rules, always enforced: no SIMPLE-labeled row may
+  # route above COMPLEX; no REASONING-labeled row may route below COMPLEX.
+  # (Encoded in the harness; listed here for the record.)
+  min_test_rows: 50
+  enforce_min_test_rows: false
+
+e4:
+  # Regression corpus = every E1 row, all splits, against results/baseline.json.
+  # A drop of more than this many accuracy points fails the run. Defensible
+  # only because the scorer is deterministic.
+  max_accuracy_drop_points: 2.0
+
+e5:
+  # Every row must produce its pinned expected_tier without raising.
+  enforce_all: true
