@@ -24,7 +24,7 @@ def test_defaults() -> None:
     assert cfg.dimension_weights == DIMENSION_WEIGHTS
     assert cfg.tool_session_min_tier == "COMPLEX"
     assert cfg.strip_patterns == list(DEFAULT_STRIP_PATTERNS)
-    assert cfg.empty_text_score == 0.3
+    assert cfg.empty_text_score == 0.0
 
 
 def test_dict_round_trip_is_exact() -> None:

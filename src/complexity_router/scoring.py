@@ -32,8 +32,9 @@ DIMENSION_WEIGHTS: Final[dict[str, float]] = {
 }
 
 #: Score returned when no scorable text can be extracted from the request.
-#: A deliberate mid-scale default; ``tests/test_scoring.py`` pins the intent.
-EMPTY_TEXT_SCORE: Final[float] = 0.3
+#: Nothing to score means the lowest tier; ``tests/test_scoring.py`` pins the
+#: intent and ``CHANGELOG.md`` records the change from the inherited 0.3.
+EMPTY_TEXT_SCORE: Final[float] = 0.0
 
 #: Default injected-context blocks stripped before scoring. Deployments
 #: replace this with the tag names their own tooling injects.
