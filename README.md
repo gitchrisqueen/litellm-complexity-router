@@ -20,7 +20,7 @@ floor = a request carrying tools is promoted to at least COMPLEX
 
 Positive weights sum to 0.95, so the achievable maximum is 0.95 and three of the four tiers sit in the bottom ~26% of that range. Whether real traffic is correspondingly compressed is something the eval set measures, not something this README asserts.
 
-**Tests:** 78 test functions in `tests/` (115 cases once parametrized), all written for this repository (`pytest`). Coverage of `scoring.py` and `tiers.py` is gated at 95% in CI.
+**Tests:** 78 test functions in `tests/` (0 cases once parametrized), all written for this repository (`pytest`). Coverage of `scoring.py` and `tiers.py` is gated at 95% in CI.
 **Eval accuracy:** not yet reported as a headline. The committed set is a 36-row **seed** (18 frozen test rows, one not-blind rater, no outside-anchored rows). On that seed the scoring stage lands 10 of 18 test rows on the labeled tier — 0.556, Wilson 95% interval [0.34, 0.75] — with both directional rules holding. See `results/latest.json` and `evals/datasets/SOURCES.md` for what the number is and is not.
 
 **Extraction disclosure.** This code was extracted from a private, single-operator production hook the author runs in front of his own agent tooling. It was rewritten here as a standalone library with a fresh git history and is maintained independently; the deployment, its proxy configuration, its model list and its hostnames stay private and do not track this repository.
@@ -48,7 +48,7 @@ request = {
 d = decide(request, cfg)
 round(d.score, 4), d.scored_tier, d.tier, d.target, d.effort
 # (0.0873, 'MEDIUM', 'MEDIUM', 'tier-medium', None)
-# 7 words -> 0.10 * 7/150 = 0.0047; one reasoning word ("prove") -> 0.25 * 1/3 = 0.0833
+# 6 words -> 0.10 * 6/150 = 0.0040; one reasoning word ("prove") -> 0.25 * 1/3 = 0.0833
 ```
 
 As a LiteLLM proxy hook — see `examples/config.yaml` for a complete illustrative config:
