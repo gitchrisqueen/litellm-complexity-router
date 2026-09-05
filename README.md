@@ -9,7 +9,7 @@ score = 0.10 * tokenCount          (words / 150, capped at 1)
       + 0.25 * technicalTerms      (domain-pattern hits / 3)
       - 0.05 * simpleIndicators    (simple-phrase hits / 2; full penalty on short questions)
       + 0.03 * multiStepPatterns   (multi-step hits / 3)
-      + 0.02 * questionComplexity  (0.15 per "?" + 0.10 per open wh-word, capped at 1)
+      + 0.02 * questionComplexity  (0.15 per "?" + 0.10 per why/how/what-if/should/could/would/might, capped at 1)
 
 tier  = SIMPLE     if score < 0.05
         MEDIUM     if score < 0.09
@@ -30,6 +30,8 @@ Positive weights sum to 0.95, so the achievable maximum is 0.95 and three of the
 **Costs are the harness's own.** Any cost or latency figure that ever appears in this repository describes the eval harness's own runs. None describes the production router, which holds no cost figure.
 
 ## Install and use
+
+Python 3.11 or newer (`requires-python` in `pyproject.toml`; CI runs 3.11 and 3.12). The only runtime dependency is PyYAML; LiteLLM is an optional extra (`[litellm]`) and the scoring and tier logic run without it.
 
 ```bash
 pip install git+https://github.com/gitchrisqueen/litellm-complexity-router
@@ -73,7 +75,7 @@ Clients call `model: tier-router`. The hook scores the last user message, picks 
 
 Ships, each exercised by a test or eval family: the scorer (`scoring.py`), the tier map and the tool-bearing floor (`tiers.py`), the score-to-effort map as a pure function, the hook shell (`hook.py`), configuration loading (`config.py`), and an observer interface with a no-op default (`observability.py`).
 
-Stays private in this first cut: the classifier layer that reassigns targets by lane, the frontier distribution pool, reasoning-effort injection into the request body, the context gate and truncation, compaction routing, and every analytics integration. They are named here because the deployed router applies them **on top of** the score, which bounds what the evals below can claim.
+Stays private as of 0.2.0: the classifier layer that reassigns targets by lane, the frontier distribution pool, reasoning-effort injection into the request body, the context gate and truncation, compaction routing, and every analytics integration. They are named here because the deployed router applies them **on top of** the score, which bounds what the evals below can claim.
 
 ## Evals
 
@@ -87,7 +89,7 @@ Three free families run on every push to `main` and on every pull request. No mo
 
 **What E1 does not measure.** In the deployed hook the score is computed and then repeatedly overridden: the tool floor, a classifier override by lane, a frontier pool picked by correlation-id hash, and rollout variants. For agentic traffic the score barely selects anything. E1 measures **the scoring stage**, and every claim about it is scoped to that.
 
-**The circularity problem, and the four controls.** The scorer is a keyword counter over four regex lists; any rubric written after reading the source shares its intuitions, so accuracy against such a set is a fit statistic. Four controls break the loop, and this README states which are in place:
+**The circularity problem, and the four controls.** The scorer is a keyword counter over three regex lists (code, technical, multi-step), two plain word lists (reasoning, simple) and one question-word regex (why/how/what if/should/could/would/might); any rubric written after reading the source shares its intuitions, so accuracy against such a set is a fit statistic. Four controls break the loop, and this README states which are in place:
 
 1. **Train / dev / frozen-test split**, assigned per row and committed, digested into every results file (`split_assignment_sha256`); `DIMENSION_WEIGHTS` and `TIER_BOUNDARIES` may only change against train/dev (`CONTRIBUTING.md`). *In place.* The headline is reported on `test` only, with its interval.
 2. **Blind labeling** — raters see `{prompt, has_tools}` and nothing else, two passes, quadratic-weighted kappa. *Deferred:* the synthetic rows were labeled in a single pass by a rater who had read the pattern lists, and the rows say so; no agreement statistic exists. The anchored rows do not depend on that rater: their label is a function of the source dataset's own field under a mapping committed before sampling (`SOURCES.md`).
@@ -96,9 +98,9 @@ Three free families run on every push to `main` and on every pull request. No mo
 
 Until blind double labeling with kappa lands (control 2), the accuracy number is directional; the hard gates are the directional rules (against the published known-failures list), the dataset-composition checks, E4 and E5.
 
-**What the anchored subset shows.** On the frozen test split every MATH, GSM8K and HumanEval row misses (0 of 12), while ARC and Dolly rows land at 0.5–0.67 and the synthetic rows at 0.60. Competition-math problems carry none of the words the scorer counts — no code pattern, no reasoning verb, no domain term — and many open with "what is" or "how many", which triggers the simple-question penalty, so a Level-5 problem scores 0.0 and routes to SIMPLE. Five such test rows violate the "no REASONING row below COMPLEX" rule; they are listed in `evals/thresholds.yaml` under `known_failures` with the rule they break, the gate fails on any addition, and neither the labels nor the boundaries were moved to make them pass. The same pattern holds across all splits (13 REASONING-labeled rows below COMPLEX in the 120, all MATH Level 4–5; plus one SIMPLE-labeled ARC-Easy train row, `e1-043`, routed to REASONING on a 0.279 score from technical vocabulary). The sensitivity sweep says the cut points are not the cause: dev accuracy is flat across the grid, and 85% of all rows score below the 0.25 cut (median 0.013). That is the result the anchored subset exists to produce — a keyword scorer measures vocabulary, not difficulty — and it bounds what this router can claim for traffic that does not announce its own complexity.
+**What the anchored subset shows.** On the frozen test split every MATH, GSM8K and HumanEval row misses (0 of 12), while ARC and Dolly rows land at 0.5–0.67 and the synthetic rows at 0.60. Competition-math problems carry none of the words the scorer counts — no code pattern, no reasoning verb, no domain term — and many open with "what is" or "how many", which triggers the simple-question penalty, so a Level-5 problem scores 0.0 and routes to SIMPLE. Five such test rows violate the "no REASONING row below COMPLEX" rule; they are listed in `evals/thresholds.yaml` under `known_failures` with the rule they break, the gate fails on any addition, and neither the labels nor the boundaries were moved to make them pass. The same pattern holds across all splits (13 REASONING-labeled rows below COMPLEX in the 120, all MATH Level 4–5; plus one SIMPLE-labeled ARC-Easy train row, `e1-043`, routed to REASONING on a 0.279 score from technical vocabulary). The sensitivity sweep says the cut points are not the cause: dev accuracy is flat or nearly flat across the grid (0.35-0.50 on 20 dev rows, where one row is 5 points; shipped 0.40, joint best 0.50), and 85% of all rows score below the 0.25 cut (median 0.013). That is the result the anchored subset exists to produce — a keyword scorer measures vocabulary, not difficulty — and it bounds what this router can claim for traffic that does not announce its own complexity.
 
-**Provenance in every result.** `results/latest.json`, each dated run file and the sensitivity artifact carry `schema_version`, the harness git SHA, the SHA-256 of both datasets, the split-assignment digest, the thresholds digest, the config digest, the Python version and `cost_usd: 0.0`.
+**Provenance in every result.** `results/latest.json`, each dated run file and the sensitivity artifact carry `schema_version`, the harness git SHA, the SHA-256 of both datasets, the split-assignment digest, the thresholds digest, the config digest, the Python version and `cost_usd: 0.0`. The harness SHA in the 2026-09-04 files (`9c6b73b`) is a commit from the pull-request branch that produced them; GitHub still serves it, but it is not on `main` after the squash merge, so use the dataset and split digests, not that SHA, to tie a results file to this tree.
 
 **The harness is a shape, not a deliverable.** The method here is free and MIT so that anyone can copy it. What a client engagement buys is what this repository cannot contain: replay cases recorded from their own conversations, their tool schemas and failure modes, thresholds set against their traffic, tier boundaries tuned to their prompts, wiring into their CI, and a written handover document.
 
@@ -127,4 +129,4 @@ Public rows are sampled by `scripts/sample_public_rows.py` (maintainer-run; need
 
 ## License
 
-MIT — see `LICENSE`. `NOTICE` names LiteLLM as the framework this hook plugs into; LiteLLM is not vendored. Thirty of the anchored dataset rows are redistributed under their source licenses (CC BY-SA 3.0 for Dolly, CC BY-SA 4.0 for ARC) with attribution in `evals/datasets/SOURCES.md`; each such row's `license` field says so.
+MIT — see `LICENSE`. `NOTICE` names LiteLLM as the framework this hook plugs into; LiteLLM is not vendored. Of the sixty anchored dataset rows, thirty are redistributed under their source licenses (CC BY-SA 3.0 for the 17 Dolly rows, CC BY-SA 4.0 for the 13 ARC rows) with attribution in `evals/datasets/SOURCES.md`; the other thirty (MATH, GSM8K, HumanEval) come from MIT-licensed datasets. Every anchored row's `license` field says which.
